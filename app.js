@@ -1,8 +1,21 @@
-const $=s=>document.querySelector(s); const results=$('#results');
-const demo=[{name:'Wireless Headphones',offers:[49,55,61],score:88},{name:'Smart Watch',offers:[79,89,99],score:82},{name:'Running Shoes',offers:[65,72,80],score:78}];
-function render(items){results.innerHTML=items.map(p=>`<article class="card"><h3>${p.name}</h3><div class="score">${p.dealScore??p.score}/100</div><p>Lowest demo offer: <b>${p.offers[0]} ${$('#currency').value}</b></p><button class="btn" onclick="alert('Connect the approved merchant/affiliate feed for the real destination.')">View deal</button></article>`).join('')||'<p>No demo match. Connect a live product feed to search the global catalog.</p>';}
-render(demo);
-$('#searchBtn').onclick=async()=>{const q=$('#q').value.trim(); if(!q){render(demo);return;} try{const r=await fetch('/api/search?q='+encodeURIComponent(q)); if(!r.ok)throw 0; const d=await r.json(); render(d.items);}catch(e){render(demo.filter(x=>x.name.toLowerCase().includes(q.toLowerCase())));}};
-$('#photo').onchange=e=>{const f=e.target.files[0];if(!f)return;const u=URL.createObjectURL(f);$('#preview').src=u;$('#preview').hidden=false;};
-$('#listingBtn').onclick=async()=>{const name=$('#sellName').value.trim()||'My product', condition=$('#condition').value;try{const r=await fetch('/api/listing',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,condition})});const d=await r.json();$('#listing').textContent=`${d.title}\n\n${d.description}\n\n${d.hashtags.join(' ')}`;}catch(e){$('#listing').textContent=`${name} — ${condition}\n\nAdd specifications, condition, delivery details and final price before publishing.`;}};
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+const MARKETS = [
+  ['US','United States','USD','amazon.com'],['CA','Canada','CAD','amazon.ca'],['MX','Mexico','MXN','amazon.com.mx'],['BR','Brazil','BRL','amazon.com.br'],
+  ['UK','United Kingdom','GBP','amazon.co.uk'],['DE','Germany','EUR','amazon.de'],['FR','France','EUR','amazon.fr'],['IT','Italy','EUR','amazon.it'],['ES','Spain','EUR','amazon.es'],['NL','Netherlands','EUR','amazon.nl'],['SE','Sweden','SEK','amazon.se'],['PL','Poland','PLN','amazon.pl'],
+  ['AE','United Arab Emirates','AED','amazon.ae'],['SA','Saudi Arabia','SAR','amazon.sa'],['IN','India','INR','amazon.in'],
+  ['JP','Japan','JPY','amazon.co.jp'],['SG','Singapore','SGD','amazon.sg'],['AU','Australia','AUD','amazon.com.au']
+];
+const demo = {
+  headphones:{name:'Wireless Headphones',score:88,price:49,market:'US',note:'Demo comparison — connect approved product feeds for live prices.'},
+  watch:{name:'Smart Watch',score:82,price:79,market:'US',note:'Demo comparison — connect approved product feeds for live prices.'},
+  shoes:{name:'Running Shoes',score:78,price:65,market:'US',note:'Demo comparison — connect approved product feeds for live prices.'}
+};
+const q=document.getElementById('q'), results=document.getElementById('results'), currency=document.getElementById('currency');
+const marketSelect=document.getElementById('market');
+function marketOptions(){return MARKETS.map(m=>`<option value="${m[0]}">${m[1]} — ${m[2]}</option>`).join('')}
+if(marketSelect){marketSelect.innerHTML=marketOptions(); marketSelect.value='AE';}
+function money(v,c){return new Intl.NumberFormat(undefined,{style:'currency',currency:c,maximumFractionDigits:0}).format(v)}
+function render(items){results.innerHTML=items.map(x=>`<article class="card"><div class="score">${x.score}/100</div><h3>${x.name}</h3><p>Lowest demo offer: <strong>${money(x.price,currency.value)}</strong></p><small>${x.note}</small><button class="btn" onclick="alert('Live affiliate tracking will activate after your approved partner IDs are configured.')">View deal</button></article>`).join('')}
+function search(){const s=(q.value||'').toLowerCase(); const list=Object.values(demo).filter(x=>!s||x.name.toLowerCase().includes(s)||s.includes(x.name.split(' ')[1]?.toLowerCase()||'')); render(list.length?list:Object.values(demo));}
+document.getElementById('searchBtn')?.addEventListener('click',search); q?.addEventListener('keydown',e=>{if(e.key==='Enter')search()}); currency?.addEventListener('change',search); search();
+const photo=document.getElementById('photo'),preview=document.getElementById('preview'); photo?.addEventListener('change',()=>{const f=photo.files?.[0]; if(f){preview.src=URL.createObjectURL(f); preview.hidden=false;}});
+document.getElementById('listingBtn')?.addEventListener('click',()=>{const n=document.getElementById('sellName').value||'Product'; const c=document.getElementById('condition').value; document.getElementById('listing').textContent=`${n}\nCondition: ${c}\n\nAI-ready title: ${n} — ${c}\nDescription: Quality ${n.toLowerCase()} offered in ${c.toLowerCase()} condition.\n\nProduction AI listing generation activates when an approved AI provider is connected.`});
