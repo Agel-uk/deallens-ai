@@ -14,7 +14,8 @@ const marketSelect=document.getElementById('market');
 function marketOptions(){return MARKETS.map(m=>`<option value="${m[0]}">${m[1]} — ${m[2]}</option>`).join('')}
 if(marketSelect){marketSelect.innerHTML=marketOptions(); marketSelect.value='AE';}
 function money(v,c){return new Intl.NumberFormat(undefined,{style:'currency',currency:c,maximumFractionDigits:0}).format(v)}
-function render(items){results.innerHTML=items.map(x=>`<article class="card"><div class="score">${x.score}/100</div><h3>${x.name}</h3><p>Lowest demo offer: <strong>${money(x.price,currency.value)}</strong></p><small>${x.note}</small><button class="btn" onclick="alert('Live affiliate tracking will activate after your approved partner IDs are configured.')">View deal</button></article>`).join('')}
+function render(items){results.innerHTML=items.map(x=>`<article class="card"><div class="score">${x.score}/100</div><h3>${x.name}</h3><p>Lowest demo offer: <strong>${money(x.price,currency.value)}</strong></p><small>${x.note}</small><button class="btn" onclick="viewDeal('${x.name.replace(/'/g,\"\\'\")}')">View deal</button></article>`).join('')}
+function viewDeal(name){ alert('Demo only: live affiliate tracking will activate after an approved provider account and tracking IDs are configured server-side. Product: '+name); }
 function search(){const s=(q.value||'').toLowerCase(); const list=Object.values(demo).filter(x=>!s||x.name.toLowerCase().includes(s)||s.includes(x.name.split(' ')[1]?.toLowerCase()||'')); render(list.length?list:Object.values(demo));}
 document.getElementById('searchBtn')?.addEventListener('click',search); q?.addEventListener('keydown',e=>{if(e.key==='Enter')search()}); currency?.addEventListener('change',search); search();
 const photo=document.getElementById('photo'),preview=document.getElementById('preview'); photo?.addEventListener('change',()=>{const f=photo.files?.[0]; if(f){preview.src=URL.createObjectURL(f); preview.hidden=false;}});

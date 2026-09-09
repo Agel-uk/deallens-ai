@@ -1,4 +1,4 @@
-# DealLens AI v6
+# DealLens AI Global Commercial V4
 
 Global shopping/deal intelligence foundation.
 
@@ -17,3 +17,6 @@ Global shopping/deal intelligence foundation.
 - Privacy/consent, analytics, rate limits and security controls
 
 The included catalog and API responses are explicitly demo data and are not live prices or affiliate offers.
+
+
+See `AFFILIATE_INTEGRATION_V4.md` for the secure global monetization architecture.
