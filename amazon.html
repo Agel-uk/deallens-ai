@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="DealLens AI original shopping guides for Amazon.ae shoppers."><title>Amazon.ae Buying Guides — DealLens AI</title><link rel="stylesheet" href="styles.css"></head><body>
+<header class="top"><div class="brand">DealLens <span>AI</span></div><nav><a href="index.html">Home</a><a href="amazon.html">Buying Guides</a><a href="dashboard.html">Merchant</a><a href="earnings.html">Earnings</a></nav></header>
+<main><section class="hero compact"><p class="eyebrow">AMAZON.AE SHOPPING GUIDES</p><h1>Find useful products faster.</h1><p>Original DealLens guides built around practical buying decisions. We help you choose what to look for, then send you to Amazon.ae to see the current offers.</p><div class="notice"><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. Some links below are paid links.</div></section>
+<section class="panel"><h2>Popular buying guides</h2><div id="guides" class="grid"></div></section>
+<section class="panel"><h2>How DealLens works</h2><ol class="steps"><li>Choose a buying guide based on your need.</li><li>Use our checklist to compare the important specifications instead of chasing a random discount.</li><li>Open Amazon.ae through the DealLens link and review the current products, seller, delivery and price before buying.</li></ol><p class="small">Prices, availability and product selection can change on Amazon.ae. DealLens does not guarantee a particular price, ranking or discount.</p></section></main><footer>© 2026 DealLens AI · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></footer>
+<script>
+const TAG='deallensai-21';
+const guides=[
+ ['Wireless Headphones','Look for comfortable fit, battery life, microphone quality and the return policy. For commuting, active noise cancellation can be useful; for calls, prioritize microphone reviews.','wireless headphones'],
+ ['Power Banks','Check capacity, USB-C support, charging speed, number of ports and airline/travel restrictions. Avoid choosing only by the largest advertised capacity.','power bank usb c'],
+ ['Robot Vacuum Cleaners','Compare navigation, obstacle avoidance, battery/runtime, replacement parts and whether the device suits your floor type.','robot vacuum cleaner'],
+ ['Air Fryers','Compare basket capacity, footprint, temperature range, cleaning design and available accessories. A larger basket is not always better for a small kitchen.','air fryer'],
+ ['Laptop Stands','For desk use, prioritize stable construction, adjustable height and compatibility with your laptop size. Foldable models are useful for travel.','adjustable laptop stand'],
+ ['Smart Watches','Compare phone compatibility, battery life, display, fitness features and water resistance. Decide which features you actually need before paying more.','smart watch'],
+ ['Running Shoes','Focus on fit, intended running surface, cushioning preference and return options. The right size and fit matter more than a flashy specification.','running shoes'],
+ ['Everyday Backpacks','Check laptop compartment size, shoulder comfort, weight, water resistance and organization. For daily commuting, a simple layout can be more useful than many small pockets.','laptop backpack'],
+ ['Skincare Basics','Check the intended skin type, active ingredients, fragrance preferences and seller information. Introduce new products carefully and follow the product label.','skincare products'],
+ ['Books & Learning','Compare edition, format, language and delivery time. For study materials, confirm the exact title and edition before ordering.','books learning']
+];
+function link(q){return 'https://www.amazon.ae/s?k='+encodeURIComponent(q)+'&tag='+encodeURIComponent(TAG)}
+document.getElementById('guides').innerHTML=guides.map(g=>`<article class="card"><div class="score">GUIDE</div><h3>${g[0]}</h3><p>${g[1]}</p><small>(paid link) Current Amazon.ae results may change.</small><a class="btn primary" rel="sponsored nofollow noopener" target="_blank" href="${link(g[2])}">See current Amazon.ae offers</a></article>`).join('');
+</script></body></html>
