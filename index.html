@@ -1,34 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="DealLens AI — global shopping intelligence.">
-<title>DealLens AI — Global Shopping</title>
-<link rel="manifest" href="manifest.json"><link rel="stylesheet" href="styles.css"></head>
-<body>
-<header class="top"><div class="brand">DealLens <span>AI</span></div><nav>
-<a href="#search">Shop</a><a href="markets.html">Global Markets</a><a href="amazon.html">Buying Guides</a><a href="#sell">Sell</a><a href="dashboard.html">Merchant</a><a href="earnings.html">Earnings</a>
-</nav></header>
-<main>
-<section class="hero"><p class="eyebrow">GLOBAL SHOPPING INTELLIGENCE · MAJOR MARKETS FIRST</p>
-<h1>Shop smarter.<br>Anywhere in the world.</h1>
-<p>Choose your shopping market, discover products and follow available merchant or affiliate links.</p>
-<div class="actions"><a class="btn primary" href="#search">Start shopping</a><a class="btn" href="markets.html">View global markets</a></div></section>
-<section id="search" class="panel"><h2>Find a product</h2>
-<div class="searchbar"><input id="q" placeholder="Search a product…"><select id="market" aria-label="Shopping market"></select>
-<select id="currency" aria-label="Currency"><option>USD</option><option>AED</option><option>SAR</option><option>GBP</option><option>CAD</option><option>EUR</option><option>JPY</option><option>INR</option></select>
-<button class="btn primary" id="searchBtn">Search</button></div>
-<div class="notice" id="marketNotice"></div><div class="grid" id="results"></div></section>
-<section class="panel"><h2>Why DealLens?</h2><div class="feature-grid">
-<div><strong>🌍 Global</strong><p>Major shopping markets in one experience.</p></div>
-<div><strong>🔎 Intent-based</strong><p>Search by what you actually want to buy.</p></div>
-<div><strong>💰 Monetizable</strong><p>Approved affiliate links can generate qualifying commissions.</p></div>
-</div></section>
-<section class="panel"><h2>Scan a product</h2><p>Upload a photo to preview the AI workflow. Production image recognition requires an approved AI provider.</p>
-<input id="photo" type="file" accept="image/*"><img id="preview" class="preview" alt="Product preview" hidden></section>
-<section id="sell" class="panel"><h2>Sell faster</h2><div class="form">
-<input id="sellName" placeholder="Product name"><select id="condition"><option>Like New</option><option>Good</option><option>Used</option></select>
-<button class="btn primary" id="listingBtn">Generate listing</button></div><pre id="listing" class="output"></pre></section>
-<section class="monetize"><div><strong>Affiliate</strong><p>Commission-ready links where approved.</p></div><div><strong>DealLens Pro</strong><p>Future premium tracking and AI insights.</p></div><div><strong>Merchant Ads</strong><p>Future sponsored placements.</p></div></section>
-<section class="panel"><h2>Affiliate disclosure</h2><p class="small">DealLens may earn commissions from qualifying purchases through approved affiliate links. Availability varies by market and program approval.</p></section>
-</main><footer>© 2026 DealLens AI · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></footer>
-<script src="affiliate-config.js"></script><script src="app.js"></script></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="DealLens AI helps shoppers discover buying guides and compare current marketplace offers across supported countries."><meta name="robots" content="index,follow"><meta property="og:title" content="DealLens AI — Buy Smarter. Sell Faster."><meta property="og:description" content="Global shopping intelligence and practical buying guides."><title>DealLens AI — Buy Smarter. Sell Faster.</title><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="styles.css"></head><body>
+<header class="top"><div class="brand">DealLens <span>AI</span></div><nav><a href="#search">Search</a><a href="amazon.html">Buying Guides</a><a href="markets.html">Markets</a><a href="#sell">Sell</a><a href="dashboard.html">Merchant</a><a href="earnings.html">Earnings</a></nav></header>
+<main><section class="hero"><p class="eyebrow">GLOBAL SHOPPING INTELLIGENCE · 18 MARKETS</p><h1>Buy Smarter.<br>Sell Faster.</h1><p>Use practical DealLens buying guides, choose your marketplace, and open current retailer results. Affiliate monetization is enabled only in markets where DealLens has an approved tracking ID.</p><div class="actions"><a class="btn primary" href="#search">Find a deal</a><a class="btn" href="amazon.html">Browse guides</a></div></section>
+<section id="search" class="panel"><h2>Search current marketplace offers</h2><div class="searchbar"><input id="q" placeholder="Search a product…" aria-label="Product search"><select id="market" aria-label="Market"></select><select id="currency" aria-label="Display currency"><option>USD</option><option>AED</option><option>OMR</option><option>SAR</option><option>EUR</option><option>GBP</option><option>CAD</option><option>JPY</option><option>AUD</option><option>INR</option><option>MXN</option><option>BRL</option><option>SEK</option><option>PLN</option><option>SGD</option></select><button class="primary" id="searchBtn">Search</button></div><div id="affiliateState" class="status"></div><div id="results" class="grid"></div><p class="small">DealLens does not display live retailer prices on this page. The retailer page is the source of current price, seller, delivery and availability.</p></section>
+<section class="panel"><h2>Scan a product</h2><p>Preview a product image locally in your browser. Images are not uploaded by this static version.</p><input id="photo" type="file" accept="image/*"><br><img id="preview" class="preview" alt="Product preview" hidden></section>
+<section id="sell" class="panel"><h2>Create a listing draft</h2><div class="form"><input id="sellName" placeholder="Product name"><select id="condition"><option>Like New</option><option>Good</option><option>Used</option></select><button class="primary" id="listingBtn">Generate draft</button></div><pre id="listing" class="output"></pre></section>
+<section class="monetize"><div><strong>Affiliate</strong><p>Approved retailer links can earn commission from qualifying purchases.</p></div><div><strong>DealLens Pro</strong><p>Future recurring revenue from price alerts and advanced features after payments are connected.</p></div><div><strong>Merchant Ads</strong><p>Future sponsored placements with transparent labelling and verified billing.</p></div></section></main>
+<footer>© 2026 DealLens AI · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></footer><script src="affiliate-config.js"></script><script src="app.js"></script></body></html>

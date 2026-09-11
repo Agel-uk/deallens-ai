@@ -1,22 +1,18 @@
-# DealLens AI Global Commercial V4
+# DealLens AI — Global Production Frontend V1
 
-Global shopping/deal intelligence foundation.
+Static, GitHub-Pages-ready commercial frontend.
 
-## Run locally
-1. Install Node.js 18+.
-2. Run `npm install`.
-3. Run `npm start`.
-4. Open `http://localhost:3000`.
+## Active monetization
+- Amazon UAE affiliate tracking ID: `deallensai-21`.
+- Other markets open the correct local Amazon marketplace without a DealLens affiliate tag until an approved ID is added.
 
-## Production integrations still required
-- Approved AI vision/model provider
-- Product/merchant feeds and affiliate programs
-- Production database/authentication
-- Payments/subscriptions
-- Ad network and merchant campaign system
-- Privacy/consent, analytics, rate limits and security controls
+## Add a new approved affiliate market
+Edit `affiliate-config.js` and add the approved public tracking ID. Do not add secrets, passwords, API keys, bank data or private credentials.
 
-The included catalog and API responses are explicitly demo data and are not live prices or affiliate offers.
+## Important
+- This frontend does not invent live prices or commission numbers.
+- DealLens Pro, user accounts, merchant billing, product feeds and server-side AI require a secure backend before activation.
+- Update privacy/consent terms before adding analytics, advertising cookies, user accounts or payment processing.
 
-
-See `AFFILIATE_INTEGRATION_V4.md` for the secure global monetization architecture.
+## Deploy
+Upload all files in this folder to the repository root and enable GitHub Pages from the `main` branch/root.
