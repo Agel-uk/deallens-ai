@@ -24,3 +24,4 @@ Upload the contents of this folder to the repository root on `main`. GitHub Page
 
 ## Security
 Never place passwords, private API keys, payment credentials or bank data in this public repository.
+Deployment refresh 2026-09-12
