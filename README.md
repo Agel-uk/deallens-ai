@@ -1,18 +1,26 @@
-# DealLens AI — Global Production Frontend V1
+# DealLens AI — Final Global V2
 
-Static, GitHub-Pages-ready commercial frontend.
+Production-ready static editorial + affiliate frontend for GitHub Pages.
 
-## Active monetization
+## What is active
+- 18 Amazon marketplace routes.
 - Amazon UAE affiliate tracking ID: `deallensai-21`.
-- Other markets open the correct local Amazon marketplace without a DealLens affiliate tag until an approved ID is added.
+- Affiliate tags are appended only where an approved public tracking ID exists.
+- Six substantial original buying guides.
+- Editorial methodology page, privacy, terms, robots.txt and expanded sitemap.
+- Canonical URLs and Article structured data on guide pages.
+- Responsive design and service worker.
+- No invented live prices, product testing claims, commissions or earnings.
 
-## Add a new approved affiliate market
-Edit `affiliate-config.js` and add the approved public tracking ID. Do not add secrets, passwords, API keys, bank data or private credentials.
+## Publish
+Upload the contents of this folder to the repository root on `main`. GitHub Pages should remain configured for the main branch/root.
 
-## Important
-- This frontend does not invent live prices or commission numbers.
-- DealLens Pro, user accounts, merchant billing, product feeds and server-side AI require a secure backend before activation.
-- Update privacy/consent terms before adding analytics, advertising cookies, user accounts or payment processing.
+## After publish
+1. Keep the Google Search Console verification file already in the repository.
+2. Resubmit/refresh `sitemap.xml` only after the new deployment is live.
+3. Request indexing for the homepage and key guide hub; Google can discover the guide pages through links and the sitemap.
+4. Add other Amazon affiliate tracking IDs only after approval in those programs.
+5. Do not activate AdSense, analytics cookies, accounts, payments, merchant billing or server-side AI until the relevant provider setup, privacy/consent and secure backend requirements are completed.
 
-## Deploy
-Upload all files in this folder to the repository root and enable GitHub Pages from the `main` branch/root.
+## Security
+Never place passwords, private API keys, payment credentials or bank data in this public repository.

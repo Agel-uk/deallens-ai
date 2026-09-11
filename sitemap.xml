@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://agel-uk.github.io/deallens-ai/</loc></url>
-<url><loc>https://agel-uk.github.io/deallens-ai/amazon.html</loc></url>
-<url><loc>https://agel-uk.github.io/deallens-ai/markets.html</loc></url>
-<url><loc>https://agel-uk.github.io/deallens-ai/earnings.html</loc></url>
-<url><loc>https://agel-uk.github.io/deallens-ai/privacy.html</loc></url>
-<url><loc>https://agel-uk.github.io/deallens-ai/terms.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/amazon.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/markets.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/about.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/guide-wireless-headphones.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/guide-power-banks.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/guide-robot-vacuums.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/guide-air-fryers.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/guide-smart-watches.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/guide-running-shoes.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/earnings.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/privacy.html</loc></url>
+  <url><loc>https://agel-uk.github.io/deallens-ai/terms.html</loc></url>
 </urlset>
