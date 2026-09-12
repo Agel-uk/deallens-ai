@@ -24,3 +24,11 @@ Upload the contents of this folder to the repository root on `main`. GitHub Page
 
 ## Security
 Never place passwords, private API keys, payment credentials or bank data in this public repository.
+
+
+## Global Monetization V3
+- Amazon US affiliate active: `deallensai-20`
+- Amazon UAE affiliate active: `deallensai-21`
+- Other Amazon markets remain standard retailer links until OneLink/local approval is confirmed.
+- Google AdSense code and root `ads.txt` are preserved.
+- Primary production URL: https://agel-uk.github.io/

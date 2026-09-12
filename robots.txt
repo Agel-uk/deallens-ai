@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://agel-uk.github.io/deallens-ai/sitemap.xml
+
+Sitemap: https://agel-uk.github.io/sitemap.xml
