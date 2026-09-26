@@ -14,3 +14,10 @@ Purpose: strengthen original editorial value before resubmitting to AdSense.
 
 ## Deployment
 Publish the contents of this folder to the root of the GitHub Pages repository that serves https://agel-uk.github.io/. Verify the live site, ads.txt and AdSense script after deployment. Only then confirm policy compliance and request another AdSense review.
+
+
+## Final navigation/content pass
+- Added substantive Mesh Wi-Fi and Portable SSD guides so related links resolve to real editorial content.
+- Rebuilt sitemap from public editorial pages and guides.
+- Utility dashboard/earnings pages remain noindex.
+- Internal links validated before packaging.
