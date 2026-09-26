@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://agel-uk.github.io/</loc></url>
+  <url><loc>https://agel-uk.github.io/index.html</loc></url>
   <url><loc>https://agel-uk.github.io/amazon.html</loc></url>
   <url><loc>https://agel-uk.github.io/markets.html</loc></url>
+  <url><loc>https://agel-uk.github.io/start-here.html</loc></url>
   <url><loc>https://agel-uk.github.io/about.html</loc></url>
+  <url><loc>https://agel-uk.github.io/editorial-policy.html</loc></url>
+  <url><loc>https://agel-uk.github.io/faq.html</loc></url>
+  <url><loc>https://agel-uk.github.io/contact.html</loc></url>
+  <url><loc>https://agel-uk.github.io/privacy.html</loc></url>
+  <url><loc>https://agel-uk.github.io/terms.html</loc></url>
   <url><loc>https://agel-uk.github.io/guide-wireless-headphones.html</loc></url>
   <url><loc>https://agel-uk.github.io/guide-power-banks.html</loc></url>
   <url><loc>https://agel-uk.github.io/guide-robot-vacuums.html</loc></url>
-  <url><loc>https://agel-uk.github.io/guide-air-fryers.html</loc></url>
-  <url><loc>https://agel-uk.github.io/guide-smart-watches.html</loc></url>
   <url><loc>https://agel-uk.github.io/guide-running-shoes.html</loc></url>
-  <url><loc>https://agel-uk.github.io/earnings.html</loc></url>
-  <url><loc>https://agel-uk.github.io/privacy.html</loc></url>
-  <url><loc>https://agel-uk.github.io/terms.html</loc></url>
+  <url><loc>https://agel-uk.github.io/guide-smart-watches.html</loc></url>
+  <url><loc>https://agel-uk.github.io/guide-air-fryers.html</loc></url>
+  <url><loc>https://agel-uk.github.io/guide-laptops.html</loc></url>
+  <url><loc>https://agel-uk.github.io/guide-office-chairs.html</loc></url>
+  <url><loc>https://agel-uk.github.io/guide-coffee-makers.html</loc></url>
+  <url><loc>https://agel-uk.github.io/guide-monitors.html</loc></url>
+  <url><loc>https://agel-uk.github.io/guide-carry-on-luggage.html</loc></url>
+  <url><loc>https://agel-uk.github.io/guide-cordless-drills.html</loc></url>
 </urlset>

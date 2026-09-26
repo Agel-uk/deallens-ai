@@ -32,3 +32,8 @@ Never place passwords, private API keys, payment credentials or bank data in thi
 - Other Amazon markets remain standard retailer links until OneLink/local approval is confirmed.
 - Google AdSense code and root `ads.txt` are preserved.
 - Primary production URL: https://agel-uk.github.io/
+
+
+## Global V4 STAGING
+
+A separate US-first global staging build is being prepared. Do not deploy staging changes while the current AdSense review is pending. See `STAGING_GLOBAL_V4.md`.
