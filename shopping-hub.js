@@ -30,6 +30,19 @@
     portability:"Check weight, dimensions and battery life in realistic use.",
     simplicity:"Favor easy setup, clear controls and low maintenance."
   };
+  const useCaseText = {
+    everyday:"Choose balanced features that suit routine use rather than paying for specialist extras.",
+    work:"Check compatibility with your work tools, serviceability and long-session comfort.",
+    travel:"Prioritize dimensions, weight, portability and practical battery or power requirements.",
+    intensive:"Favor sustained performance, durability, support and maintenance availability."
+  };
+  const tradeoffs = {
+    value:"Trade-off: a lower upfront price may mean fewer features, shorter support or higher running costs.",
+    reliability:"Trade-off: stronger warranties and service options can cost more initially.",
+    performance:"Trade-off: high performance may increase power use, weight or price.",
+    portability:"Trade-off: compact designs may compromise screen size, capacity or cooling.",
+    simplicity:"Trade-off: easy-to-use models may offer fewer advanced controls."
+  };
   const el = (tag, text, cls) => { const n=document.createElement(tag); if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n; };
   const selectedMarket = () => markets[$("market").value];
   function updateCurrency(){
@@ -37,7 +50,7 @@
   }
   function render(event){
     event.preventDefault();
-    const m=selectedMarket(), p=products[$("category").value], priority=$("priority").value;
+    const m=selectedMarket(), p=products[$("category").value], priority=$("priority").value, usecase=$("usecase").value;
     const raw=$("budget").value.trim(), budget=raw===""?null:Number(raw), target=$("results");
     target.replaceChildren(el("h2","Your shopping plan"));
     if(budget!==null&&(!Number.isFinite(budget)||budget<=0||budget>10000000)){
@@ -47,11 +60,23 @@
     head.append(el("h3",p.name+" in "+m.name));
     head.append(el("span",m.currency,"hub-pill"));target.append(head);
     target.append(el("p",budget===null?"No maximum budget specified.":"Your planning budget: "+new Intl.NumberFormat("en-US",{maximumFractionDigits:2}).format(budget)+" "+m.currency+"."));
+    target.append(el("h3","Your buying strategy"));
+    target.append(el("p",useCaseText[usecase]));
     target.append(el("p",priorityText[priority]));
+    target.append(el("p",tradeoffs[priority],"hub-warning"));
+    if(budget!==null){
+      const reserve=budget*0.1;
+      const cap=budget-reserve;
+      target.append(el("p","Optional planning approach: reserve about 10% ("+new Intl.NumberFormat("en-US",{maximumFractionDigits:2}).format(reserve)+" "+m.currency+") for taxes, shipping or accessories; aim for a listed item price at or below "+new Intl.NumberFormat("en-US",{maximumFractionDigits:2}).format(cap)+" "+m.currency+" if those extras apply. This is a planning suggestion, not a verified cost estimate.","hub-help"));
+    }
     target.append(el("h3","What to check before buying"));
     const list=el("ul",undefined,"hub-checks");
     p.checks.forEach(s=>list.append(el("li",s)));
     target.append(list);
+    target.append(el("h3","Before you pay"));
+    const finalChecks=el("ul",undefined,"hub-checks");
+    ["Confirm final price including tax and delivery in the retailer checkout","Check seller reputation, return window and local warranty coverage","Verify exact model specifications and compatibility","Compare at least two independently verified listings"].forEach(x=>finalChecks.append(el("li",x)));
+    target.append(finalChecks);
     const links=el("div",undefined,"hub-links");
     const guide=el("a","Read our independent buying guide →","hub-secondary");guide.href=p.guide;links.append(guide);
     const tags=window.DEALLENS_AFFILIATE_TAGS||{};
@@ -60,11 +85,14 @@
     if(tag)params.set("tag",tag);
     const retailer=el("a","Browse "+m.name+" retailer listings ↗","hub-button");
     retailer.href="https://"+m.domain+"/s?"+params.toString();
-    retailer.target="_blank";retailer.rel="noopener noreferrer sponsored";
+    retailer.target="_blank";retailer.rel=tag?"noopener noreferrer sponsored":"noopener noreferrer";
     links.append(retailer);target.append(links);
     target.append(el("p",tag?"This retailer search uses the public affiliate tag configured for this market. Verify that the affiliate account remains approved.":"This market currently uses a standard retailer search link without an affiliate tracking tag.","hub-small"));
     target.append(el("p","Important: the budget is NOT applied to the retailer search results. Prices, taxes, shipping, stock, seller identity, returns and product suitability must be checked on the retailer site.","hub-warning"));
     const compare=el("p");const a=el("a","Compare verified products in Decision Lab →");a.href="decision-lab.html";compare.append(a);target.append(compare);
+    const actions=el("div",undefined,"hub-actions");
+    const print=el("button","Print or save plan","hub-secondary");print.type="button";print.addEventListener("click",()=>window.print());actions.append(print);
+    target.append(actions);
   }
   $("market").addEventListener("change",updateCurrency);
   $("hub-form").addEventListener("submit",render);
