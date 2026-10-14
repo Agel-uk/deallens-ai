@@ -1,9 +1,95 @@
-(function(){
-const markets=[("US", "United States", "USD", "amazon.com"), ("UK", "United Kingdom", "GBP", "amazon.co.uk"), ("DE", "Germany", "EUR", "amazon.de"), ("CA", "Canada", "CAD", "amazon.ca"), ("FR", "France", "EUR", "amazon.fr"), ("AU", "Australia", "AUD", "amazon.com.au"), ("JP", "Japan", "JPY", "amazon.co.jp"), ("IT", "Italy", "EUR", "amazon.it"), ("ES", "Spain", "EUR", "amazon.es"), ("AE", "United Arab Emirates", "AED", "amazon.ae"), ("SA", "Saudi Arabia", "SAR", "amazon.sa"), ("IN", "India", "INR", "amazon.in"), ("NL", "Netherlands", "EUR", "amazon.nl"), ("SE", "Sweden", "SEK", "amazon.se"), ("PL", "Poland", "PLN", "amazon.pl"), ("SG", "Singapore", "SGD", "amazon.sg")];
-const storageKey='deallens_market';
-function selected(){try{return localStorage.getItem(storageKey)||'US'}catch(e){return 'US'}}
-function find(code){return markets.find(x=>x[0]===code)||markets[0]}
-function link(query){const m=find(selected());const u=new URL('https://www.'+m[3]+'/s');u.searchParams.set('k',query);const tag=(window.DEALLENS_AFFILIATE_TAGS||{})[m[0]];if(tag)u.searchParams.set('tag',tag);return u.href}
-function update(){const m=find(selected());document.querySelectorAll('.global-market-choice').forEach(s=>s.value=m[0]);document.querySelectorAll('.global-market-status').forEach(x=>x.textContent='Marketplace: '+m[1]+' ('+m[2]+') · '+((window.DEALLENS_AFFILIATE_TAGS||{})[m[0]]?'Approved affiliate tag configured':'No affiliate tracking enabled'));document.querySelectorAll('a.offer-link[data-query]').forEach(a=>{a.href=link(a.dataset.query);a.target='_blank';a.rel=((window.DEALLENS_AFFILIATE_TAGS||{})[m[0]]?'sponsored ':'')+'nofollow noopener'});}
-document.addEventListener('DOMContentLoaded',()=>{const guides=document.querySelectorAll('a.offer-link[data-query]');if(!guides.length)return;const section=document.createElement('section');section.className='panel global-market-panel';const title=document.createElement('h2');title.textContent='Choose your shopping market';const label=document.createElement('label');label.textContent='Country / marketplace: ';const select=document.createElement('select');select.className='global-market-choice';select.setAttribute('aria-label','Choose shopping country');markets.forEach(m=>{const o=document.createElement('option');o.value=m[0];o.textContent=m[1]+' — '+m[2];select.appendChild(o)});label.appendChild(select);const p=document.createElement('p');p.className='global-market-status';const note=document.createElement('p');note.className='small';note.textContent='Links open current retailer search results. Prices, shipping, availability and warranties are determined by the retailer. US links may be paid affiliate links. Other marketplaces are untagged unless an eligible local ID is configured.';section.append(title,label,p,note);const anchor=guides[0].closest('aside')||guides[0].parentElement;anchor.parentNode.insertBefore(section,anchor);select.addEventListener('change',()=>{try{localStorage.setItem(storageKey,select.value)}catch(e){}update()});update();});
+/* DealLens market selector — fixed 2026-10-14. No geo-redirects or invented tags. */
+(function () {
+  'use strict';
+  const markets = [
+    {code:'US', name:'United States', currency:'USD', host:'www.amazon.com'},
+    {code:'UK', name:'United Kingdom', currency:'GBP', host:'www.amazon.co.uk'},
+    {code:'DE', name:'Germany', currency:'EUR', host:'www.amazon.de'},
+    {code:'CA', name:'Canada', currency:'CAD', host:'www.amazon.ca'},
+    {code:'FR', name:'France', currency:'EUR', host:'www.amazon.fr'},
+    {code:'AU', name:'Australia', currency:'AUD', host:'www.amazon.com.au'},
+    {code:'JP', name:'Japan', currency:'JPY', host:'www.amazon.co.jp'},
+    {code:'IT', name:'Italy', currency:'EUR', host:'www.amazon.it'},
+    {code:'ES', name:'Spain', currency:'EUR', host:'www.amazon.es'},
+    {code:'AE', name:'United Arab Emirates', currency:'AED', host:'www.amazon.ae'},
+    {code:'SA', name:'Saudi Arabia', currency:'SAR', host:'www.amazon.sa'},
+    {code:'IN', name:'India', currency:'INR', host:'www.amazon.in'},
+    {code:'NL', name:'Netherlands', currency:'EUR', host:'www.amazon.nl'},
+    {code:'SE', name:'Sweden', currency:'SEK', host:'www.amazon.se'},
+    {code:'PL', name:'Poland', currency:'PLN', host:'www.amazon.pl'},
+    {code:'SG', name:'Singapore', currency:'SGD', host:'www.amazon.sg'}
+  ];
+  const key = 'deallens_market';
+  const getCode = () => {
+    try { const code = localStorage.getItem(key); return markets.some(m=>m.code===code) ? code : 'US'; }
+    catch (_) { return 'US'; }
+  };
+  const find = () => markets.find(m=>m.code===getCode()) || markets[0];
+  const tagFor = m => m.code === 'US' ? 'deallensai-20' : null;
+  const offerUrl = (m, query) => {
+    const u = new URL('https://' + m.host + '/s');
+    u.searchParams.set('k', query);
+    if (tagFor(m)) u.searchParams.set('tag', tagFor(m));
+    return u.href;
+  };
+  function update() {
+    const m = find();
+    document.querySelectorAll('.global-market-choice').forEach(select => { select.value = m.code; });
+    document.querySelectorAll('.global-market-status').forEach(p => {
+      p.textContent = 'Marketplace: ' + m.name + ' (' + m.currency + ') · ' + (tagFor(m) ? 'US affiliate link' : 'No affiliate tracking enabled');
+    });
+    document.querySelectorAll('a.offer-link[data-query]').forEach(a => {
+      a.href = offerUrl(m, a.getAttribute('data-query'));
+      a.target = '_blank';
+      a.rel = tagFor(m) ? 'sponsored nofollow noopener' : 'noopener noreferrer';
+    });
+    document.querySelectorAll('.affiliate-us-disclosure').forEach(p => {
+      p.textContent = tagFor(m)
+        ? '(paid link) As an Amazon Associate I earn from qualifying purchases.'
+        : 'This marketplace link has no affiliate tracking enabled.';
+    });
+  }
+  function init() {
+    const offers = document.querySelectorAll('a.offer-link[data-query]');
+    if (!offers.length) return;
+    // Remove any stale or duplicated selector panels before installing the working selector.
+    document.querySelectorAll('.global-market-panel').forEach(el => el.remove());
+    const section = document.createElement('section');
+    section.className = 'panel global-market-panel';
+    const heading = document.createElement('h2');
+    heading.textContent = 'Choose your shopping market';
+    const label = document.createElement('label');
+    label.textContent = 'Country / marketplace: ';
+    const select = document.createElement('select');
+    select.className = 'global-market-choice';
+    select.setAttribute('aria-label', 'Choose shopping country');
+    markets.forEach(m => {
+      const option = document.createElement('option');
+      option.value = m.code;
+      option.textContent = m.name + ' — ' + m.currency;
+      select.appendChild(option);
+    });
+    label.appendChild(select);
+    const status = document.createElement('p');
+    status.className = 'global-market-status';
+    const note = document.createElement('p');
+    note.className = 'small';
+    note.textContent = 'Retailer prices, availability, shipping and returns may vary by country. US links use the DealLens Amazon Associates tracking ID; other countries are not tracked.';
+    section.append(heading, label, status, note);
+    const anchor = offers[0].closest('aside') || offers[0].parentElement;
+    anchor.parentNode.insertBefore(section, anchor);
+    select.addEventListener('change', () => {
+      try { localStorage.setItem(key, select.value); } catch (_) {}
+      // Still update when browser storage is blocked.
+      if (getCode() !== select.value) {
+        const m = markets.find(m=>m.code===select.value) || markets[0];
+        document.querySelectorAll('.global-market-status').forEach(p => p.textContent='Marketplace: '+m.name+' ('+m.currency+') · '+(tagFor(m)?'US affiliate link':'No affiliate tracking enabled'));
+        document.querySelectorAll('a.offer-link[data-query]').forEach(a => { a.href=offerUrl(m,a.getAttribute('data-query')); a.rel=tagFor(m)?'sponsored nofollow noopener':'noopener noreferrer'; });
+        document.querySelectorAll('.affiliate-us-disclosure').forEach(p => p.textContent=tagFor(m)?'(paid link) As an Amazon Associate I earn from qualifying purchases.':'This marketplace link has no affiliate tracking enabled.');
+      } else update();
+    });
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
