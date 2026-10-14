@@ -18,3 +18,6 @@
 .priority-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.priority-card{padding:20px;border:1px solid var(--line);border-radius:18px;background:#fff}.priority-card strong{display:block;font-size:16px}.priority-card p{color:var(--muted);line-height:1.6;margin-bottom:0}.primary-market{border-color:#93c5fd;background:#eff6ff}@media(max-width:760px){.priority-grid{grid-template-columns:1fr}}
 
 .footer-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:24px}.footer-grid a{display:block;margin:7px 0}.footer-grid p{line-height:1.6}.footer-bottom{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}.authority p{line-height:1.75;color:var(--muted);max-width:850px}@media(max-width:720px){.footer-grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+
+/* Global marketplace selector */
+.global-market-panel{margin:1.25rem 0;padding:1rem;max-width:100%}.global-market-choice{display:block;width:100%;max-width:350px;padding:.7rem;border:1px solid #94a3b8;border-radius:8px;margin:.6rem 0;background:#fff;color:#111827}.global-market-status{font-weight:600}
