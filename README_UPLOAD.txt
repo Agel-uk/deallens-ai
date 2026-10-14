@@ -1,0 +1,1 @@
+DealLens V4 inline selector fix. Upload all 16 guide-*.html files to the GitHub Pages repository root. No JS files to upload. Existing external selector scripts were removed from these guide pages. US defaults to amazon.com with tag=deallensai-20; other markets have no tracking. Hard refresh after deployment. This package does not change AdSense, sitemap, or other pages.
