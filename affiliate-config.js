@@ -1,2 +1,2 @@
-// Add only verified, approved public tracking IDs after enrollment.
-window.DEALLENS_AFFILIATE_TAGS = {};
+// Public Amazon Associates US tracking ID. Other markets remain untagged until separately authorized.
+window.DEALLENS_AFFILIATE_TAGS = { US: "deallensai-20" };
