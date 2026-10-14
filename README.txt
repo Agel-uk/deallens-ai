@@ -1,16 +1,9 @@
-DealLens AI — urgent marketplace selector repair (14 October 2026)
+DealLens market selector emergency repair (v3) — 2026-10-14
 
-CAUSE: the previous global-market.js had malformed market entries, so marketplace labels and generated links were invalid.
+WHY: The page showed corrupted market names and www.z. This release uses a NEW JS filename to bypass the previously cached global-market.js and preserves all existing guide content.
 
-UPLOAD TO THE SAME GITHUB PAGES FOLDER AS guide-wireless-headphones.html:
-1. global-market.js (REPLACE old version)
-2. affiliate-config.js (add or replace)
-Do NOT upload the folder itself. Do NOT replace guide pages, sitemap, robots.txt or site CSS.
+UPLOAD: Upload all 16 guide-*.html files and market-selector-v3.js to the root of Agel-uk/deallens-ai on GitHub. Replace existing guide files. Do NOT upload a containing folder. Keep index.html, AdSense and sitemap files unchanged.
 
-AFTER GITHUB PAGES DEPLOYS:
-1. Open guide-wireless-headphones.html?v=fix20261014 and hard-refresh (Ctrl+F5).
-2. Select United States. The View current offers link should be https://www.amazon.com/s?k=wireless+headphones&tag=deallensai-20
-3. Select United Kingdom. The link should point to https://www.amazon.co.uk/s?k=wireless+headphones with NO tag.
-4. If old malformed labels remain, wait for deployment and clear cache, then confirm global-market.js is in the SAME directory as the guide HTML files.
+TEST: Open guide-wireless-headphones.html?v=marketfix3 in a private window. Select US -> amazon.com/s?k=wireless+headphones&tag=deallensai-20; select UK -> amazon.co.uk/s?k=wireless+headphones (no tag). Inspect the actual link URL.
 
-This does not confirm final Amazon Associates approval, registered websites, tax setup or payment readiness.
+NOTE: This repair changes the script reference in all 16 guides to avoid old cached JS. It does not change other pages that may use the old global-market.js. Amazon account final approval/payment status not verified.
