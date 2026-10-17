@@ -20,7 +20,9 @@
     .dl-categories a:hover,.dl-categories a:focus-visible{border-color:#4777d7;box-shadow:0 0 0 2px #b8d2ff}
     .dl-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
     @media(max-width:650px){.dl-quick-form{flex-direction:column}.dl-categories{grid-template-columns:repeat(3,minmax(0,1fr))}.dl-categories a{font-size:.78rem;padding:11px 4px}}
-  </style>
+    .dl-quick-form #quickMarket{border:0;border-radius:12px;background:#e9f4f5;color:#102e3d;font:inherit;font-size:14px;font-weight:700;padding:10px;min-width:175px;max-width:100%}
+  @media(max-width:650px){.dl-quick-form #quickMarket{width:100%;min-height:48px}}
+</style>
 <style>
 /* DealLens Ultra: homepage-only responsive visual layer */
 :root{--ultra-navy:#0b1830;--ultra-teal:#0eac98;--ultra-muted:#5a6a7f}
@@ -80,13 +82,14 @@ footer{background:#0b1932;color:#dbe7ef;padding:40px 24px}footer a{color:#dbe7ef
 <div class="hero-copy" style="max-width:920px;margin:auto;text-align:center">
 <p class="eyebrow">FIND ANYTHING. BUY SMARTER.</p>
 <h1 id="shop-title">What are you shopping for?</h1>
-<p class="lede">Search any product on Amazon US in seconds, or explore our independent buying guides before you choose.</p>
+<p class="lede">Choose your shopping country and search products, or explore our independent buying guides before you choose.</p>
 <form class="dl-quick-form" id="quickShopForm" role="search">
 <label class="dl-sr-only" for="quickShopInput">Product name</label>
+<select id="quickMarket" aria-label="Choose shopping country"><option value="US">🇺🇸 United States</option><option value="AE">🇦🇪 United Arab Emirates</option></select>
 <input autocomplete="off" id="quickShopInput" maxlength="180" placeholder="Try: wireless headphones, coffee maker, running shoes…" required="" type="search"/>
 <button class="btn primary" type="submit">Search products →</button>
 </form>
-<p class="dl-quick-note">Opens Amazon.com search results. Prices, sellers and availability are shown by Amazon. Affiliate links may earn us a commission.</p>
+<p class="dl-quick-note">Opens the selected Amazon marketplace. Prices, sellers and availability are shown by Amazon. Some links may earn us a commission.</p>
 <div aria-label="Shop popular categories" class="dl-categories">
 <a href="https://www.amazon.com/s?k=electronics&amp;tag=deallensai-20" rel="sponsored noopener noreferrer" target="_blank">📱 Electronics</a>
 <a href="https://www.amazon.com/s?k=home+and+kitchen&amp;tag=deallensai-20" rel="sponsored noopener noreferrer" target="_blank">🏠 Home &amp; Kitchen</a>
@@ -204,15 +207,33 @@ footer{background:#0b1932;color:#dbe7ef;padding:40px 24px}footer a{color:#dbe7ef
     (() => {
       const form = document.getElementById('quickShopForm');
       const input = document.getElementById('quickShopInput');
+      const quickMarket = document.getElementById('quickMarket');
+      const bottomMarket = document.getElementById('market');
+      if (bottomMarket && ['US', 'AE'].includes(bottomMarket.value)) quickMarket.value = bottomMarket.value;
+      quickMarket.addEventListener('change', () => {
+        if (bottomMarket) {
+          bottomMarket.value = quickMarket.value;
+          bottomMarket.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+      bottomMarket?.addEventListener('change', () => {
+        if (['US', 'AE'].includes(bottomMarket.value)) quickMarket.value = bottomMarket.value;
+      });
       form.addEventListener('submit', event => {
         event.preventDefault();
         const query = input.value.trim();
         if (!query) { input.focus(); return; }
         const tags = window.DEALLENS_AFFILIATE_TAGS || {};
-        const url = new URL('https://www.amazon.com/s');
+        const market = document.getElementById('quickMarket').value;
+        const domains = { US: 'www.amazon.com', AE: 'www.amazon.ae' };
+        const url = new URL('https://' + domains[market] + '/s');
         url.searchParams.set('k', query);
-        if (tags.US) url.searchParams.set('tag', tags.US);
-        window.open(url.toString(), '_blank', 'noopener,noreferrer');
+        const tag = tags[market];
+        if (typeof tag === 'string' && /^[a-zA-Z0-9_-]{1,100}$/.test(tag)) {
+          url.searchParams.set('tag', tag);
+        }
+        const popup = window.open(url.toString(), '_blank', 'noopener,noreferrer');
+        if (!popup) window.location.href = url.toString();
       });
     })();
   </script>
