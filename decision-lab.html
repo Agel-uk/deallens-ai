@@ -1,39 +1,24 @@
-DealLens AI
-HomeBuying GuidesMarketsDecision LabMethodology
-GLOBAL 2.0 • PRIVATE DECISION WORKSHEET
-
-Choose by evidence, not hype.
-Compare three products using your own priorities. All scoring happens in your browser. No live price feeds, fabricated ratings, or paid AI services.
-
-Preview feature: enter your own verified specifications and prices. Scores are subjective decision aids, not independent product tests.
-
-STEP 1
-
-Set your priorities
-Product category
-Headphones
-Currency
-USD
-Maximum budget (optional)
-e.g. 250
-Move each priority slider from 0 (not important) to 5 (essential).
-
-STEP 2
-
-Enter products and evidence
-Rate each product from 1–5 only after reviewing trusted specifications, hands-on reviews, warranty terms and return policies. Unknown values should stay blank.
-
-Compare productsClear worksheetPrint / save PDF
-STEP 3
-
-Your comparison
-Add at least two named products and score their criteria to see a comparison. Products with missing evidence are marked as incomplete.
-
-How the decision score works
-Each criterion contributes its priority weight multiplied by your product rating. The final score is the weighted average, scaled to 100. Missing ratings are excluded and clearly reduce evidence coverage. Prices are entered by you; total cost includes optional shipping and estimated fees, not automatically calculated tax.
-
-Products above your budget are flagged, not silently removed. Higher scores are not guarantees of quality or suitability.
-
-Read our editorial policy · Privacy policy
-
-© 2026 DealLens AI · Independent buying research · Preview tool
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://agel-uk.github.io/deallens-ai/decision-lab.html">
+<title>Compare Three Products by Your Priorities | DealLens AI Decision Lab</title>
+<meta name="description" content="Compare up to three products using your own evidence-based ratings, priorities and budget. Free private browser-based weighted decision worksheet.">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="decision-lab.css">
+<style>.lab .panel{padding:22px;margin:22px 0;border:1px solid #cad7df;border-radius:12px;background:#fff;color:#132838}.lab .panel h2,.lab .panel h3{color:#132838}.lab .lab-hero{color:inherit}.lab .lab-hero p{max-width:780px}.lab .small{font-size:.9rem}.lab .eyebrow{font-weight:700;letter-spacing:.08em}.lab a{color:#086b86}.lab .priority span{color:#132838} .lab button{background:#123c58;color:#fff;border:0} .lab button:focus-visible{outline:3px solid #1e928a}</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="index.html">DealLens <span>AI</span></a><nav aria-label="Primary"><a href="index.html">Home</a> <a href="amazon.html">Buying Guides</a> <a href="markets.html">Markets</a> <a aria-current="page" href="decision-lab.html">Decision Lab</a> <a href="about.html">Methodology</a></nav></header>
+<main class="lab">
+<section class="lab-hero"><p class="eyebrow">PRIVATE DECISION WORKSHEET</p><h1>Compare products using your own priorities</h1><p>Enter up to three products, score their verified features and compare weighted results. Calculations run in your browser; this worksheet does not fetch live prices or claim to test products.</p><p class="lab-note">Preview tool: your ratings are subjective decision aids, not independent product tests. Leave unknown ratings blank.</p></section>
+<section class="panel" aria-labelledby="step-one"><p class="eyebrow">STEP 1</p><h2 id="step-one">Set your priorities</h2><div class="lab-grid"><label for="category">Product category<select id="category"><option value="headphones">Headphones</option><option value="powerbanks">Power banks</option><option value="laptops">Laptops</option><option value="vacuums">Robot vacuums</option><option value="general">Other products</option></select></label><label for="money">Currency<select id="money"><option value="USD">USD</option><option value="AED">AED</option><option value="GBP">GBP</option><option value="EUR">EUR</option></select></label><label for="budget">Maximum budget (optional)<input id="budget" type="number" min="0" step="0.01" placeholder="e.g. 250"></label></div><p>Move each priority slider from 0 (not important) to 5 (essential).</p><div id="priorities" class="priority-grid"></div></section>
+<section class="panel" aria-labelledby="step-two"><p class="eyebrow">STEP 2</p><h2 id="step-two">Enter products and evidence</h2><p>Use verified specifications, warranty information and reliable reviews. Unknown criteria should remain unassessed.</p><div id="candidates" class="candidate-grid"></div><div class="lab-actions"><button id="compare" type="button">Compare products</button><button id="reset" type="button">Clear worksheet</button><button id="print" type="button">Print / save PDF</button></div></section>
+<section id="report" class="panel" aria-live="polite"><p class="eyebrow">STEP 3</p><h2>Your comparison</h2><p>Enter at least two named products and their evidence-based ratings, then compare.</p></section>
+<section class="panel" aria-labelledby="method"><h2 id="method">How the score works</h2><p>Each rating (1–5) is multiplied by its priority weight (0–5). The weighted average is scaled to 100. Missing ratings are excluded from the score and reduce evidence coverage. A high score with low coverage is less informative than one backed by complete evidence.</p><p>Estimated cost is entered price plus optional shipping and fees; tax is not automatically calculated. Products above your budget are flagged, not removed. Results are based solely on your entries and are not endorsements.</p><h3>Example</h3><p>If comfort matters more than battery life, set a higher weight for comfort. A product rated 5/5 for comfort and 3/5 for battery life can then outrank a product with the opposite scores. Verify each rating before relying on the result.</p><p>Start with the <a href="guide-power-banks.html">power bank guide</a>, <a href="guide-air-fryers.html">air fryer guide</a> or <a href="guide-running-shoes.html">running shoe guide</a>; find current retailer listings through the <a href="shopping-hub.html">Shopping Hub</a>.</p><p><a href="editorial-policy.html">Editorial policy</a> · <a href="privacy.html">Privacy policy</a></p></section>
+</main><footer><p>© 2026 DealLens AI · Independent buying research · Preview tool</p></footer>
+<script defer src="decision-lab.js"></script>
+</body></html>
