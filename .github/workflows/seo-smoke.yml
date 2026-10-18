@@ -15,5 +15,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check JavaScript syntax
+        run: node --check decision-lab.js
       - name: Check page structure and internal links
         run: python scripts/seo_smoke_test.py
