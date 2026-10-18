@@ -31,7 +31,7 @@ for filename in PAGES:
     content = (ROOT / filename).read_text(encoding="utf-8")
     p = PageParser()
     p.feed(content)
-    if not re.search(r"<html\\b", content, re.I): errors.append(f"{filename}: missing html element")
+    if not re.search(r"<html\b", content, re.I): errors.append(f"{filename}: missing html element")
     if p.h1 != 1: errors.append(f"{filename}: expected one h1, found {p.h1}")
     expected = f"https://agel-uk.github.io/deallens-ai/{filename}"
     if p.canonical != [expected]: errors.append(f"{filename}: canonical incorrect")
@@ -44,9 +44,9 @@ for filename in PAGES:
 lab = PageParser()
 lab.feed((ROOT / "decision-lab.html").read_text(encoding="utf-8"))
 js = (ROOT / "decision-lab.js").read_text(encoding="utf-8")
-for element_id in set(re.findall(r"\\$\\('([^']+)'\\)", js)):
+for element_id in set(re.findall(r"\$\('([^']+)'\\)", js)):
     if element_id not in lab.ids: errors.append(f"decision-lab.html: missing JS element {element_id}")
 if errors:
-    print("\\n".join(errors))
+    print("\n".join(errors))
     sys.exit(1)
 print("PASS: five pages, local links, canonicals and Decision Lab element IDs")
