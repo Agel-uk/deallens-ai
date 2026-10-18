@@ -6,7 +6,7 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("guide-power-banks.html", "guide-air-fryers.html", "guide-running-shoes.html", "decision-lab.html", "shopping-hub.html")
+PAGES = ("guide-power-banks.html", "guide-air-fryers.html", "guide-running-shoes.html", "decision-lab.html", "shopping-hub.html", "amazon.html", "ar.html")
 
 class PageParser(HTMLParser):
     def __init__(self):
@@ -49,4 +49,4 @@ for element_id in set(re.findall(r"\$\('([^']+)'\)", js)):
 if errors:
     print("\n".join(errors))
     sys.exit(1)
-print("PASS: five pages, local links, canonicals and Decision Lab element IDs")
+print("PASS: seven pages, local links, canonicals and Decision Lab element IDs")
