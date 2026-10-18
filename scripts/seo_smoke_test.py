@@ -44,7 +44,7 @@ for filename in PAGES:
 lab = PageParser()
 lab.feed((ROOT / "decision-lab.html").read_text(encoding="utf-8"))
 js = (ROOT / "decision-lab.js").read_text(encoding="utf-8")
-for element_id in set(re.findall(r"\$\('([^']+)'\\)", js)):
+for element_id in set(re.findall(r"\$\('([^']+)'\)", js)):
     if element_id not in lab.ids: errors.append(f"decision-lab.html: missing JS element {element_id}")
 if errors:
     print("\n".join(errors))
