@@ -4,6 +4,8 @@ on:
     paths:
       - '*.html'
       - 'decision-lab.js'
+      - 'app.js'
+      - 'affiliate-config.js'
       - 'scripts/seo_smoke_test.py'
       - '.github/workflows/seo-smoke.yml'
   workflow_dispatch:
@@ -16,6 +18,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check JavaScript syntax
-        run: node --check decision-lab.js
+        run: |
+          node --check decision-lab.js
+          node --check app.js
+          node --check affiliate-config.js
       - name: Check page structure and internal links
         run: python scripts/seo_smoke_test.py
