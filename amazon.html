@@ -14,13 +14,14 @@
 <body>
   <header class="top">
     <a class="brand" href="index.html">DealLens <span>AI</span></a>
-    <nav>
+    <nav aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="amazon.html" aria-current="page">Buying Guides</a>
       <a href="markets.html">Markets</a>
       <a href="start-here.html">Start Here</a>
       <a href="about.html">Methodology</a>
       <a href="decision-lab.html">Decision Lab</a>
+      <a href="ar.html" lang="ar" dir="rtl">العربية</a>
     </nav>
   </header>
 
@@ -41,113 +42,113 @@
       <h2>Choose a category</h2>
       <p>Start with your intended use, compare the features that matter, and verify current prices, sellers and product specifications directly with the retailer.</p>
 
-      <div class="grid">
-        <article class="card">
+      <div class="library-controls" role="search" aria-label="Filter buying guides"><label for="librarySearch">Find a guide</label><input id="librarySearch" type="search" autocomplete="off" placeholder="Search products or topics…" aria-controls="libraryGrid"><label for="libraryCategory">Category</label><select id="libraryCategory"><option value="all">All categories</option><option value="tech">Technology</option><option value="home">Home and kitchen</option><option value="work">Work and productivity</option><option value="lifestyle">Travel, fitness and lifestyle</option></select><button type="button" id="clearFilters">Clear filters</button></div><p id="libraryCount" role="status" aria-live="polite">Showing all 16 guides</p><p id="libraryEmpty" hidden>No matching guides. Try a different search or category.</p><div class="grid" id="libraryGrid">
+        <article class="card" data-category="tech">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Wireless Headphones</h3>
           <p>Compare comfort, noise cancellation, microphone performance and connectivity for commuting, work calls and everyday listening.</p>
           <a class="btn" href="guide-wireless-headphones.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="tech">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Power Banks</h3>
           <p>Check charging standards, usable capacity, USB-C power output, safety features and airline travel restrictions.</p>
           <a class="btn" href="guide-power-banks.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="home">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Robot Vacuums</h3>
           <p>Assess floor layout, pets, obstacle avoidance, navigation, maintenance and replacement-part costs.</p>
           <a class="btn" href="guide-robot-vacuums.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="lifestyle">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Running Shoes</h3>
           <p>Focus on fit, comfort, terrain, training needs and return options rather than brand claims.</p>
           <a class="btn" href="guide-running-shoes.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="tech">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Smart Watches</h3>
           <p>Check phone compatibility, battery life, supported features, privacy and ongoing subscription costs.</p>
           <a class="btn" href="guide-smart-watches.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="home">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Air Fryers</h3>
           <p>Compare usable cooking space, cleaning, countertop clearance, cooking routines and household capacity.</p>
           <a class="btn" href="guide-air-fryers.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="work">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Laptops</h3>
           <p>Match processor, memory, storage, screen quality and battery life to the applications you actually use.</p>
           <a class="btn" href="guide-laptops.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="work">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Office Chairs</h3>
           <p>Review seat fit, adjustments, support, materials, warranty and long-session comfort.</p>
           <a class="btn" href="guide-office-chairs.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="home">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Coffee Makers</h3>
           <p>Compare drip and pod brewing, recurring costs, cleanup and daily convenience before choosing a machine.</p>
           <a class="btn" href="guide-coffee-makers.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="home">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Coffee Machines</h3>
           <p>Understand espresso-machine types, grinders, milk steaming, maintenance and the time required for daily use.</p>
           <a class="btn" href="guide-coffee-machines.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="work">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Computer Monitors</h3>
           <p>Consider resolution, display size, desk depth, ergonomics, connections and text clarity.</p>
           <a class="btn" href="guide-monitors.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="lifestyle">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Carry-On Luggage</h3>
           <p>Verify airline size limits, weight, wheel durability, interior layout and warranty terms.</p>
           <a class="btn" href="guide-carry-on-luggage.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="home">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Cordless Drills</h3>
           <p>Choose based on tasks, battery platform, torque, ergonomics and included accessories.</p>
           <a class="btn" href="guide-cordless-drills.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="tech">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Mesh Wi-Fi</h3>
           <p>Compare coverage, backhaul, node placement, Wi-Fi standards, security and wired connections.</p>
           <a class="btn" href="guide-mesh-wifi.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="tech">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Portable SSDs</h3>
           <p>Check capacity, interfaces, sustained transfer speed, device compatibility, durability and backup practices.</p>
           <a class="btn" href="guide-portable-ssds.html">Read full guide</a>
         </article>
 
-        <article class="card">
+        <article class="card" data-category="tech">
           <div class="score">INDEPENDENT BUYING GUIDE</div>
           <h3>Tablets</h3>
           <p>Compare operating systems, app compatibility, screen size, stylus support, battery life and accessory costs.</p>
@@ -192,6 +193,13 @@
     <div class="footer-bottom">© 2026 DealLens AI · All rights reserved.</div>
   </footer>
 
+  <script>
+  (function(){
+    const input=document.getElementById('librarySearch'),category=document.getElementById('libraryCategory'),cards=Array.from(document.querySelectorAll('#libraryGrid .card')),count=document.getElementById('libraryCount'),empty=document.getElementById('libraryEmpty');
+    function update(){const q=input.value.trim().toLocaleLowerCase(),selected=category.value;let visible=0;cards.forEach(card=>{const match=(selected==='all'||card.dataset.category===selected)&&card.textContent.toLocaleLowerCase().includes(q);card.hidden=!match;if(match)visible++;});count.textContent='Showing '+visible+' of '+cards.length+' guides';empty.hidden=visible!==0;}
+    input.addEventListener('input',update);category.addEventListener('change',update);document.getElementById('clearFilters').addEventListener('click',()=>{input.value='';category.value='all';update();input.focus();});update();
+  })();
+  </script>
   <script src="affiliate-config.js"></script>
   <script src="app.js"></script>
 </body>
