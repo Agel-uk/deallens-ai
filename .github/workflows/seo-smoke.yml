@@ -4,6 +4,7 @@ on:
     paths:
       - '*.html'
       - 'decision-lab.js'
+      - 'ownership-cost.js'
       - 'app.js'
       - '*.css'
       - 'sw.js'
@@ -22,6 +23,7 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check decision-lab.js
+          node --check ownership-cost.js
           node --check app.js
           node --check affiliate-config.js
           node --check sw.js
