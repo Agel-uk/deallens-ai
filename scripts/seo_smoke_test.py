@@ -57,6 +57,13 @@ for guide_path in guide_paths:
             errors.append(f"{guide_path.name}: missing conversion path {destination}")
 if len(guide_paths) != 16:
     errors.append(f"Expected 16 buying guides, found {len(guide_paths)}")
+# Ensure measured buyer paths have instrumentation without hard-coded GA IDs.
+for measured in ("index.html", "amazon.html", "us-shopping.html", "decision-lab.html", "ownership-cost.html", "shopping-hub.html"):
+    if 'src="analytics.js"' not in (ROOT / measured).read_text(encoding="utf-8"):
+        errors.append(f"{measured}: analytics instrumentation missing")
+for guide_path in guide_paths:
+    if 'src="analytics.js"' not in guide_path.read_text(encoding="utf-8"):
+        errors.append(f"{guide_path.name}: analytics instrumentation missing")
 if errors:
     print("\n".join(errors))
     sys.exit(1)
