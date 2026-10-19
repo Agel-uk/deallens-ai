@@ -1,7 +1,7 @@
 "use strict";
 /* Consent-first GA4 event measurement. Disabled until a real measurement ID is configured. */
 (function(){
-  const GA4_MEASUREMENT_ID=""; // Set your real G-XXXXXXXXXX ID here after creating a GA4 web stream.
+  const GA4_MEASUREMENT_ID="G-J09RWN8FZX"; // Set your real G-XXXXXXXXXX ID here after creating a GA4 web stream.
   const ID=(GA4_MEASUREMENT_ID||window.DEALLENS_ANALYTICS_ID||"").trim();
   const valid=/^G-[A-Z0-9]{6,15}$/.test(ID);
   const KEY="deallens_analytics_consent_v1";
