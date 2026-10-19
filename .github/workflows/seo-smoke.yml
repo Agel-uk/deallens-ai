@@ -6,6 +6,7 @@ on:
       - 'decision-lab.js'
       - 'ownership-cost.js'
       - 'ownership-core.js'
+      - 'analytics.js'
       - 'tests/**'
       - 'app.js'
       - '*.css'
@@ -27,6 +28,7 @@ jobs:
           node --check decision-lab.js
           node --check ownership-cost.js
           node --check ownership-core.js
+          node --check analytics.js
           node --check app.js
           node --check affiliate-config.js
           node --check sw.js
