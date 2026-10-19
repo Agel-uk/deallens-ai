@@ -46,7 +46,18 @@ lab.feed((ROOT / "decision-lab.html").read_text(encoding="utf-8"))
 js = (ROOT / "decision-lab.js").read_text(encoding="utf-8")
 for element_id in set(re.findall(r"\$\('([^']+)'\)", js)):
     if element_id not in lab.ids: errors.append(f"decision-lab.html: missing JS element {element_id}")
+# Every published buying guide should offer a clear research-to-comparison path.
+guide_paths = sorted(ROOT.glob("guide-*.html"))
+for guide_path in guide_paths:
+    guide_content = guide_path.read_text(encoding="utf-8")
+    if "dl-next-step" not in guide_content:
+        errors.append(f"{guide_path.name}: missing comparison call to action")
+    for destination in ("decision-lab.html?category=", "ownership-cost.html", "us-shopping.html"):
+        if destination not in guide_content:
+            errors.append(f"{guide_path.name}: missing conversion path {destination}")
+if len(guide_paths) != 16:
+    errors.append(f"Expected 16 buying guides, found {len(guide_paths)}")
 if errors:
     print("\n".join(errors))
     sys.exit(1)
-print("PASS: nine pages, local links, canonicals and Decision Lab element IDs")
+print("PASS: nine core pages, 16 guide funnels, local links, canonicals and Decision Lab element IDs")
