@@ -8,12 +8,12 @@
     for(const field of fields){
       const raw=$(field+suffix).value.trim();
       const value=Number(raw);
-      if(raw===""||!Number.isFinite(value)||value<0||value>10000000)throw new Error("Enter a valid nonnegative amount for "+field+" in option "+suffix+".");
+      if(raw===""||!Number.isFinite(value)||value<0||value>10000000||!/^\\d+(?:\\.\\d{1,2})?$/.test(raw))throw new Error("Enter a valid nonnegative amount for "+field+" in option "+suffix+".");
       costs[field]=value;
     }
     return {name:($("name"+suffix).value.trim()||"Option "+suffix).slice(0,70),...costs};
   }
-  function total(p,years){return p.price+p.delivery+years*(p.annual+p.maintenance+12*p.subscription);}
+  const total=window.DealLensOwnership.total;
   function cell(value){const td=document.createElement("td");td.textContent=value;return td;}
   function row(table,label,a,b){const tr=document.createElement("tr");const th=document.createElement("th");th.scope="row";th.textContent=label;tr.append(th,cell(a),cell(b));table.append(tr);}
   function calculate(){
