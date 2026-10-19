@@ -2,7 +2,7 @@
 // DealLens AI — Service Worker
 // Cache only successful same-origin GET responses.
 
-const CACHE = 'deallens-v6-20261019';
+const CACHE = 'deallens-v7-20261019';
 
 const ASSETS = [
   './',
@@ -11,6 +11,7 @@ const ASSETS = [
   './us-shopping.html',
   './ownership-cost.html',
   './ownership-cost.js',
+  './ownership-core.js',
   './markets.html',
   './about.html',
   './styles.css',
