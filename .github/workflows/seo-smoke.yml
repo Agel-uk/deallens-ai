@@ -5,6 +5,8 @@ on:
       - '*.html'
       - 'decision-lab.js'
       - 'ownership-cost.js'
+      - 'ownership-core.js'
+      - 'tests/**'
       - 'app.js'
       - '*.css'
       - 'sw.js'
@@ -24,8 +26,11 @@ jobs:
         run: |
           node --check decision-lab.js
           node --check ownership-cost.js
+          node --check ownership-core.js
           node --check app.js
           node --check affiliate-config.js
           node --check sw.js
+      - name: Test calculator math
+        run: node tests/ownership-core.test.cjs
       - name: Check page structure and internal links
         run: python scripts/seo_smoke_test.py
