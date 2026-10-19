@@ -47,3 +47,10 @@ html{scroll-padding-top:90px}
 .skip-link:focus{top:8px}
 @media(max-width:820px){.top{padding:12px 18px;gap:10px;flex-wrap:wrap}.top nav{width:100%;display:flex;overflow-x:auto;flex-wrap:nowrap;gap:16px;scrollbar-width:thin;padding-bottom:4px}.top nav a{white-space:nowrap;flex:0 0 auto}.hero{padding-top:48px}main{min-width:0}}
 @media(max-width:480px){.top{position:relative}.hero h1{line-height:1.1}.panel{padding:18px}.lab{padding:14px}.lab .panel{padding:16px}.candidate-grid{grid-template-columns:1fr}}
+
+/* Guide-to-tool pathway: readable on desktop and narrow screens */
+.dl-next-step{margin-top:28px;border:1px solid #c7d7e9;border-radius:16px;background:#f1f7ff;padding:24px}
+.dl-next-step h2{line-height:1.2}
+.dl-next-step .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin:5px 8px 5px 0;text-decoration:none}
+.dl-next-step .small{color:#475467}
+@media(max-width:520px){.dl-next-step{padding:18px}.dl-next-step .btn{display:flex;width:100%;margin:8px 0}}
