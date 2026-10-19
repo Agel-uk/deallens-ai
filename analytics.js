@@ -58,7 +58,31 @@
   document.addEventListener("click",function(e){
     const el=eventTarget(e.target);
     const tracked=classify(el);
-    if(tracked)send(tracked.name,tracked.params);
+    if(!tracked)return;
+    // Let ordinary same-tab Amazon navigation wait briefly for the GA4 event.
+    // Never interfere with modified clicks, downloads, new tabs or declined consent.
+    if(tracked.name!=="retailer_outbound_click"||!enabled||!e.isTrusted||
+       e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||
+       el.target&&el.target.toLowerCase()!=="_self"||el.hasAttribute("download")){
+      send(tracked.name,tracked.params);
+      return;
+    }
+    e.preventDefault();
+    let navigated=false;
+    const destination=el.href;
+    function proceed(){
+      if(navigated)return;
+      navigated=true;
+      window.location.assign(destination);
+    }
+    // Timeout guarantees the retailer link works if GA4 is blocked or slow.
+    window.setTimeout(proceed,350);
+    window.gtag("event",tracked.name,{
+      ...tracked.params,
+      transport_type:"beacon",
+      event_callback:proceed,
+      event_timeout:300
+    });
   },{capture:true});
   document.addEventListener("submit",function(e){const form=e.target;if(!(form instanceof HTMLFormElement))return;let action;try{action=new URL(form.action,location.href)}catch{return}if(action.hostname==="amazon.com"||action.hostname.startsWith("www.amazon.")||action.hostname.startsWith("amazon.")){send("retailer_search_submit",{retailer:"amazon",market_host:action.hostname,source_page:location.pathname.split("/").pop()||"index.html"})}},true);
   document.addEventListener("DOMContentLoaded",()=>{if(choice()==="yes")start();else banner()});
