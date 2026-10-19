@@ -60,7 +60,7 @@
     const tracked=classify(el);
     if(tracked)send(tracked.name,tracked.params);
   },{capture:true});
-  document.addEventListener("submit",function(e){const form=e.target;if(!(form instanceof HTMLFormElement))return;let action;try{action=new URL(form.action,location.href)}catch{return}if(action.hostname.endsWith("amazon.com")||/^www\\.amazon\\.[a-z.]+$/.test(action.hostname)){send("retailer_search_submit",{retailer:"amazon",market_host:action.hostname,source_page:location.pathname.split("/").pop()||"index.html"})}},true);
+  document.addEventListener("submit",function(e){const form=e.target;if(!(form instanceof HTMLFormElement))return;let action;try{action=new URL(form.action,location.href)}catch{return}if(action.hostname==="amazon.com"||action.hostname.startsWith("www.amazon.")||action.hostname.startsWith("amazon.")){send("retailer_search_submit",{retailer:"amazon",market_host:action.hostname,source_page:location.pathname.split("/").pop()||"index.html"})}},true);
   document.addEventListener("DOMContentLoaded",()=>{if(choice()==="yes")start();else banner()});
   window.DealLensAnalytics={enabled:()=>enabled,resetConsent:()=>{save("no");location.reload()}};
 })();
