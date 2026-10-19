@@ -5,6 +5,8 @@ on:
       - '*.html'
       - 'decision-lab.js'
       - 'app.js'
+      - '*.css'
+      - 'sw.js'
       - 'affiliate-config.js'
       - 'scripts/seo_smoke_test.py'
       - '.github/workflows/seo-smoke.yml'
@@ -22,5 +24,6 @@ jobs:
           node --check decision-lab.js
           node --check app.js
           node --check affiliate-config.js
+          node --check sw.js
       - name: Check page structure and internal links
         run: python scripts/seo_smoke_test.py
