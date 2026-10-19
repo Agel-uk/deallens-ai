@@ -31,4 +31,4 @@
  const filter=document.getElementById('guideFilter'),list=Array.from(document.querySelectorAll('#guideResults li')),count=document.getElementById('guideCount'),empty=document.getElementById('guideEmpty');
  filter.addEventListener('input',function(){const q=this.value.trim().toLocaleLowerCase();let shown=0;list.forEach(function(li){const matches=(li.textContent+' '+li.dataset.keywords).toLocaleLowerCase().includes(q);li.hidden=!matches;if(matches)shown++;});count.textContent=shown+' '+(shown===1?'guide':'guides')+' found';empty.hidden=shown!==0;});
 })();
-</script></body></html>
+</script><script>window.DEALLENS_ANALYTICS_ID="";</script><script src="analytics.js" defer></script></body></html>
