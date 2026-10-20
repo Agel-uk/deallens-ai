@@ -3,6 +3,16 @@
 (function(){
   const form=document.getElementById("usSearch");
   if(!form)return;
+  document.querySelectorAll(".intent-search-preset[data-search]").forEach(function(button){
+    button.addEventListener("click",function(){
+      const query=form.querySelector('input[name="k"]');
+      if(!query)return;
+      query.value=button.dataset.search||"";
+      if(!query.value.trim())return;
+      if(typeof form.requestSubmit==="function")form.requestSubmit();
+      else form.querySelector('button[type="submit"]')?.click();
+    });
+  });
   form.addEventListener("submit",function(){
     const tags=window.DEALLENS_AFFILIATE_TAGS||{};
     const tag=typeof tags.US==="string"?tags.US.trim():"";
