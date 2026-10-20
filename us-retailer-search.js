@@ -17,7 +17,7 @@
     const tags=window.DEALLENS_AFFILIATE_TAGS||{};
     const tag=typeof tags.US==="string"?tags.US.trim():"";
     let field=form.querySelector('input[name="tag"]');
-    if(!tag){if(field)field.remove();return;}
+    if(!/^[a-z0-9][a-z0-9-]{1,48}-20$/i.test(tag)){if(field)field.remove();return;}
     if(!field){field=document.createElement("input");field.type="hidden";field.name="tag";form.appendChild(field);}
     field.value=tag;
   });
