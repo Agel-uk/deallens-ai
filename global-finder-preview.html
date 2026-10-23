@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="description" content="Compare US shopping options by budget and practical buying criteria for laptops, headphones, robot vacuums and more."><title>DealLens Global Product Finder — Preview</title>
+<style>:root{color-scheme:dark;font-family:system-ui,Arial,sans-serif}*{box-sizing:border-box}body{margin:0;background:#081525;color:#f0f7ff;line-height:1.6}.wrap{max-width:960px;margin:auto;padding:28px 18px}a{color:#77e5d6}h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.15}p,.muted{color:#c3d2df}.panel{background:#14263a;border:1px solid #385169;border-radius:16px;padding:22px;margin:20px 0}label{display:block;font-weight:650;margin-top:12px}input,select,button{width:100%;padding:13px;margin-top:6px;border-radius:9px;border:1px solid #7890a6;font:inherit}input,select{background:#fff;color:#102032}button{background:#57dfce;color:#061b24;font-weight:800;cursor:pointer;border:0;margin-top:20px}button:hover{background:#8cf2e4}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.result{border:1px solid #385169;padding:18px;border-radius:12px;background:#112337}.small{font-size:.9rem}.error{color:#ffd19d}footer{padding:25px 0}</style></head><body><main class="wrap">
+<p><a href="index.html">← DealLens AI</a> · Private product finder preview</p>
+<h1>Shop smarter in the United States.</h1>
+<p>Compare your options in US dollars. Choose a product category, priorities and budget. Get a use-prioritized decision checklist, optional comparison of products you enter, and a local retailer search link. No fabricated live prices or AI claims.</p>
+<section class="panel"><form id="finder">
+<div class="grid"><div><label for="country">Shopping market</label><select id="country" required>
+<option value="US">United States · USD (primary market)</option><option value="GB">United Kingdom · GBP</option><option value="AE">United Arab Emirates · AED</option><option value="CA">Canada · CAD</option><option value="DE">Germany · EUR</option><option value="JP">Japan · JPY</option><option value="FR">France · EUR</option><option value="AU">Australia · AUD</option><option value="IN">India · INR</option></select></div>
+<div><label for="category">Product category</label><select id="category" required>
+<option value="laptops">Laptops</option><option value="headphones">Wireless headphones</option><option value="monitors">Monitors</option><option value="vacuums">Robot vacuums</option><option value="mesh">Mesh Wi-Fi</option><option value="chairs">Office chairs</option><option value="powerbanks">Power banks</option></select></div></div>
+<div class="grid"><div><label for="budget" id="budget-label">Maximum budget (USD)</label><input id="budget" type="number" min="1" step="1" value="1000" required><p id="budget-help" class="small muted">Enter your maximum spend in US dollars; retailer taxes and shipping may be extra.</p></div>
+<div><label for="use">Main use</label><select id="use"><option value="work">Work / productivity</option><option value="home">Home / everyday</option><option value="travel">Travel / portability</option><option value="performance">Performance / advanced</option></select></div></div>
+<div class="panel"><h3>Optional: compare real candidates</h3><p class="small">Enter product names, prices and your evidence-based feature scores (1–5). Prices are manually supplied, not live quotes. Candidates within budget appear first; over-budget candidates are shown for context.</p><div class="grid"><div><label for="p1">Product A name</label><input id="p1" placeholder="Optional product name"><label for="price1">Price</label><input id="price1" type="number" min="0" step="any" placeholder="Price in local currency"><label for="score1">Verified feature score (1–5)</label><select id="score1"><option value="">Unknown</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div><div><label for="p2">Product B name</label><input id="p2" placeholder="Optional product name"><label for="price2">Price</label><input id="price2" type="number" min="0" step="any" placeholder="Price in local currency"><label for="score2">Verified feature score (1–5)</label><select id="score2"><option value="">Unknown</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div></div></div><button type="submit">Build my shopping checklist →</button></form><p id="error" class="error" role="alert"></p></section>
+<section class="panel" aria-label="Editorial disclosure"><h2>How this tool works</h2><p>We provide decision criteria, not live price quotes or paid rankings. Compare specifications and independently verify retailer offers before purchasing. No affiliate commission is earned from the preview search links.</p></section>
+<section id="results" aria-live="polite" hidden><h2>Your shopping decision</h2><p id="summary"></p><div class="grid" id="cards"></div><div class="panel"><h3>Candidate comparison</h3><div id="candidates"></div></div><div class="panel"><h3>Next step</h3><p>Use the checklist to compare independently verified product specifications and actual retailer offers. Prices and stock may change.</p><p><a id="shop" target="_blank" rel="noopener noreferrer sponsored">Search this category at your local Amazon marketplace ↗</a></p><p><a id="guide">Read our independent buying guide →</a></p><p class="small muted">These preview retailer search links are untagged and do not currently earn affiliate commission. Any future affiliate links must use an approved program and carry an appropriate disclosure. Availability varies by country.</p></div></section>
+<footer class="muted small">Preview only · No paid checkout, real-time offers, or commission-enabled links · Browser-based rules, not live AI, pricing, stock, product testing or personalized financial advice. No account or payment is collected.</footer></main>
+<script>
+(()=>{'use strict';
+const categories={
+laptops:{name:'laptops',terms:['CPU performance and generation','RAM and storage upgrade options','Battery life and actual device weight','Ports, warranty and repairability'],guide:'guide-laptops.html'},
+headphones:{name:'wireless headphones',terms:['Microphone clarity for calls','Active noise cancellation and transparency','Comfort and battery life','Bluetooth multipoint and compatibility'],guide:'guide-wireless-headphones.html'},
+monitors:{name:'monitors',terms:['Resolution at intended screen size','Panel type and color accuracy','Refresh rate and connectivity','Ergonomics and warranty'],guide:'guide-monitors.html'},
+vacuums:{name:'robot vacuums',terms:['Carpet and pet-hair performance','Obstacle avoidance and mapping','Dock maintenance and consumable costs','Floor compatibility and support'],guide:'guide-robot-vacuums.html'},
+mesh:{name:'mesh Wi-Fi systems',terms:['Coverage and floor plan','Wired backhaul support','Wi-Fi standard and device compatibility','Security updates and expansion costs'],guide:'guide-mesh-wifi.html'},
+chairs:{name:'office chairs',terms:['Seat and lumbar adjustability','Dimensions and fit','Materials and long-term comfort','Return policy and warranty'],guide:'guide-office-chairs.html'},
+powerbanks:{name:'power banks',terms:['USB-C PD wattage','Capacity and airline restrictions','Port count and charging speed','Safety certifications and warranty'],guide:'guide-power-banks.html'}};
+const shops={US:['https://www.amazon.com/s?k=','USD'],GB:['https://www.amazon.co.uk/s?k=','GBP'],AE:['https://www.amazon.ae/s?k=','AED'],CA:['https://www.amazon.ca/s?k=','CAD'],DE:['https://www.amazon.de/s?k=','EUR'],JP:['https://www.amazon.co.jp/s?k=','JPY'],FR:['https://www.amazon.fr/s?k=','EUR'],AU:['https://www.amazon.com.au/s?k=','AUD'],IN:['https://www.amazon.in/s?k=','INR']};
+const el=id=>document.getElementById(id);
+const suggestedBudgets={laptops:1000,headphones:200,monitors:300,vacuums:400,mesh:200,chairs:250,powerbanks:60};
+const countryNames={US:'United States',GB:'United Kingdom',AE:'United Arab Emirates',CA:'Canada',DE:'Germany',JP:'Japan',FR:'France',AU:'Australia',IN:'India'};
+function updateBudgetHelp(){const country=el('country').value,currency=shops[country][1];el('budget-label').textContent='Maximum budget ('+currency+')';el('budget-help').textContent='Enter your maximum spend in '+currency+' for '+countryNames[country]+'. Taxes, shipping and currency conversion may be extra. Suggested budgets are examples, not current market prices.';}
+el('country').addEventListener('change',updateBudgetHelp);
+el('category').addEventListener('change',()=>{el('budget').value=suggestedBudgets[el('category').value];updateBudgetHelp();});
+updateBudgetHelp();
+// Preview intentionally avoids analytics or third-party tracking until consent and measurement are reviewed.
+const priorities={
+work:[3,1,2,4],home:[2,3,4,1],travel:[3,4,1,2],performance:[1,2,4,3]
+};
+// Category-aware priority order (one-based criterion numbers) for common US buying scenarios.
+const categoryPriorities={
+ headphones:{work:[1,3,4,2],home:[3,2,4,1],travel:[2,3,4,1],performance:[2,1,4,3]},
+ laptops:{work:[2,1,3,4],home:[3,2,4,1],travel:[3,4,2,1],performance:[1,2,4,3]},
+ vacuums:{work:[3,2,1,4],home:[4,1,2,3],travel:[3,4,2,1],performance:[1,2,3,4]},
+ monitors:{work:[4,1,2,3],home:[1,4,2,3],travel:[4,1,3,2],performance:[3,2,1,4]},
+ mesh:{work:[3,4,1,2],home:[1,4,2,3],travel:[3,4,2,1],performance:[2,3,1,4]},
+ chairs:{work:[1,2,3,4],home:[2,3,4,1],travel:[2,4,1,3],performance:[1,3,2,4]},
+ powerbanks:{work:[1,3,4,2],home:[2,3,4,1],travel:[2,4,1,3],performance:[1,3,2,4]}
+};
+// Priorities are editorial heuristics, not independent product test results.
+const money=(amount,currency)=>new Intl.NumberFormat('en-US',{style:'currency',currency,maximumFractionDigits:2}).format(amount);
+function compareCandidates(budget,currency){
+ const container=el('candidates');container.replaceChildren();
+ const items=[];
+ for(let i=1;i<=2;i++){
+  const name=el('p'+i).value.trim(),rawPrice=el('price'+i).value,rawScore=el('score'+i).value;
+  if(!name&&!rawPrice&&!rawScore)continue;
+  const price=rawPrice===''?null:Number(rawPrice);
+  const score=rawScore===''?null:Number(rawScore);
+  if(!name||price===null||!Number.isFinite(price)||price<0||price>1e12){const p=document.createElement('p');p.className='error';p.textContent='Candidate '+i+': enter a name and valid non-negative price.';container.append(p);continue;}
+  items.push({name,price,score,eligible:price<=budget});
+ }
+ if(!items.length&&!container.childNodes.length){container.textContent='No candidates entered. Add up to two products to compare verified specifications and budget fit.';return;}
+ items.sort((a,b)=>Number(b.eligible)-Number(a.eligible)||(b.score??-1)-(a.score??-1)||a.price-b.price);
+ for(const item of items){
+  const p=document.createElement('p');
+  const status=item.eligible?'Within budget':'Over budget';
+  p.textContent=item.name+' — '+money(item.price,currency)+' — '+status+' — '+(item.score===null?'feature score unknown':'user-entered feature score '+item.score+'/5');
+  container.append(p);
+ }
+ if(items.length && items.every(item=>!item.eligible)){const warn=document.createElement('p');warn.className='error';warn.textContent='None of the entered products fit your budget. Consider lower-priced alternatives or a different budget.';container.prepend(warn);}
+ const note=document.createElement('p');note.className='small muted';note.textContent='Ordering: within-budget first, then user-entered feature score, then lower price. Scores are subjective and are not independent tests. Priority checklist above is tailored to your main use.';container.append(note);
+}
+el('finder').addEventListener('submit',e=>{e.preventDefault();const country=el('country').value,cat=categories[el('category').value],use=el('use').value,budget=Number(el('budget').value);
+if(!Number.isFinite(budget)||budget<=0||budget>1e12){el('error').textContent='Enter a valid budget greater than zero and no more than 1 trillion.';el('results').hidden=true;return;}el('error').textContent='';
+el('summary').textContent='Compare '+cat.name+' for '+use+' use, with a maximum budget of '+new Intl.NumberFormat('en-US',{style:'currency',currency:shops[country][1],maximumFractionDigits:0}).format(budget)+'. Verify all specifications and prices before buying.';
+const cards=el('cards');cards.replaceChildren();const selectedCategory=el('category').value;const rankedOrder=(categoryPriorities[selectedCategory]||{})[use]||priorities[use];const ordered=cat.terms.map((term,i)=>({term,rank:rankedOrder.indexOf(i+1)})).sort((a,b)=>a.rank-b.rank);ordered.forEach((item,i)=>{const t=item.term;const d=document.createElement('article');d.className='result';const h=document.createElement('h3');h.textContent=(i+1)+'. '+t;const p=document.createElement('p');p.textContent='Check this criterion against manufacturer documentation and independent reviews. Record unknowns rather than guessing.';d.append(h,p);cards.append(d)});
+compareCandidates(budget,shops[country][1]);el('shop').href=shops[country][0]+encodeURIComponent(cat.name);el('shop').setAttribute('aria-label','Search '+cat.name+' on Amazon in '+country+'; opens a new tab');el('guide').href=cat.guide;el('results').hidden=false;el('results').scrollIntoView({behavior:'smooth',block:'start'});});
+})();
+</script></body></html>
