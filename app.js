@@ -3,7 +3,7 @@
 
 // DealLens AI — marketplace search and buying guides.
 // Affiliate IDs are configured in affiliate-config.js.
-// Only configured and authorized markets receive affiliate tags.
+// Only markets explicitly enabled in affiliate-config.js receive tags; this does not establish account approval.
 
 const MARKETS = [
   ["AE", "United Arab Emirates", "AED", "amazon.ae"],
@@ -26,7 +26,7 @@ const MARKETS = [
   ["AU", "Australia", "AUD", "amazon.com.au"]
 ];
 
-const TAGS = window.DEALLENS_AFFILIATE_TAGS || {};
+const TAGS = window.DEALLENS_ACTIVE_AFFILIATE_TAGS || {};
 
 const guides = [
   ["Air Fryers", "air fryer", "guide-air-fryers.html"],
