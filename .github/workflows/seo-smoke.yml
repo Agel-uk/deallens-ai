@@ -13,6 +13,8 @@ on:
       - 'sw.js'
       - 'affiliate-config.js'
       - 'scripts/seo_smoke_test.py'
+      - 'sitemap.xml'
+      - 'robots.txt'
       - '.github/workflows/seo-smoke.yml'
   workflow_dispatch:
 jobs:
