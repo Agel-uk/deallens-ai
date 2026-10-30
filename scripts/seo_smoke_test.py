@@ -33,13 +33,32 @@ for filename in PAGES:
     p.feed(content)
     if not re.search(r"<html\b", content, re.I): errors.append(f"{filename}: missing html element")
     if p.h1 != 1: errors.append(f"{filename}: expected one h1, found {p.h1}")
-    expected = f"https://agel-uk.github.io/deallens-ai/{filename}"
+    expected = f"https://agel-uk.github.io/{filename}"
     if p.canonical != [expected]: errors.append(f"{filename}: canonical incorrect")
     if not any("index" in x and "noindex" not in x for x in p.robots): errors.append(f"{filename}: indexing meta missing")
     for url in p.links:
         if url.startswith(("http:", "https:", "mailto:", "#", "tel:", "data:")): continue
         target = url.split("?", 1)[0].split("#", 1)[0]
         if target and not (ROOT / target).is_file(): errors.append(f"{filename}: missing local reference {url}")
+
+# Validate the sitemap's canonical root URLs and duplicate-free entries.
+import xml.etree.ElementTree as ET
+sitemap = ET.parse(ROOT / "sitemap.xml").getroot()
+namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+locations = [node.text for node in sitemap.findall(".//sm:loc", namespace)]
+if not locations: errors.append("sitemap.xml: no URLs found")
+if len(locations) != len(set(locations)): errors.append("sitemap.xml: duplicate URLs")
+for location in locations:
+    if not location or not location.startswith("https://agel-uk.github.io/"):
+        errors.append(f"sitemap.xml: unexpected location {location}")
+        continue
+    suffix = location.removeprefix("https://agel-uk.github.io/")
+    target = ROOT / (suffix or "index.html")
+    if not target.is_file(): errors.append(f"sitemap.xml: missing local page {location}")
+for guide_path in sorted(ROOT.glob("guide-*.html")):
+    if guide_path.name == "guide-wireless-headphones-fixed.html": continue
+    expected = f"https://agel-uk.github.io/{guide_path.name}"
+    if expected not in locations: errors.append(f"sitemap.xml: guide missing {guide_path.name}")
 
 lab = PageParser()
 lab.feed((ROOT / "decision-lab.html").read_text(encoding="utf-8"))
