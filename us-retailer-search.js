@@ -15,10 +15,12 @@
   });
   form.addEventListener("submit",function(){
     const tags=window.DEALLENS_AFFILIATE_TAGS||{};
-    const tag=typeof tags.US==="string"?tags.US.trim():"";
+    const enabled=window.DEALLENS_ENABLED_AFFILIATE_MARKETS?.US===true;
+    const tag=enabled&&typeof tags.US==="string"?tags.US.trim():"";
     let field=form.querySelector('input[name="tag"]');
     if(!/^[a-z0-9][a-z0-9-]{1,48}-20$/i.test(tag)){if(field)field.remove();return;}
     if(!field){field=document.createElement("input");field.type="hidden";field.name="tag";form.appendChild(field);}
     field.value=tag;
+    // The tag is a configuration value, not proof of Associates approval.
   });
 })();
