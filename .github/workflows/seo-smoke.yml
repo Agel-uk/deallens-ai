@@ -1,5 +1,8 @@
 name: DealLens SEO smoke checks
 on:
+  push:
+    branches:
+      - main
   pull_request:
     paths:
       - '*.html'
