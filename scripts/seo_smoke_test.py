@@ -41,6 +41,17 @@ for filename in PAGES:
         target = url.split("?", 1)[0].split("#", 1)[0]
         if target and not (ROOT / target).is_file(): errors.append(f"{filename}: missing local reference {url}")
 
+# Protect the production domain and US affiliate tracking from regressions.
+robots_text = (ROOT / "robots.txt").read_text(encoding="utf-8")
+if "Sitemap: https://agel-uk.github.io/sitemap.xml" not in robots_text:
+    errors.append("robots.txt: production sitemap reference missing")
+config = (ROOT / "affiliate-config.js").read_text(encoding="utf-8")
+if 'US: "deallensai-20"' not in config or "US: true" not in config:
+    errors.append("affiliate-config.js: US affiliate ID or activation missing")
+home = (ROOT / "index.html").read_text(encoding="utf-8")
+if 'src="affiliate-config.js"' not in home or "url.searchParams.set('tag',tags[m[0]])" not in home:
+    errors.append("index.html: affiliate search tracking path missing")
+
 # Validate the sitemap's canonical root URLs and duplicate-free entries.
 import xml.etree.ElementTree as ET
 sitemap = ET.parse(ROOT / "sitemap.xml").getroot()
