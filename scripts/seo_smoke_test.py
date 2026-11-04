@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static smoke checks for the five Search Console affected pages."""
+"""Static SEO smoke checks for the production sitemap and buying guides."""
 from html.parser import HTMLParser
 from pathlib import Path
 import re
@@ -78,6 +78,10 @@ for location in locations:
         continue
     parser = PageParser()
     parser.feed(target.read_text(encoding="utf-8"))
+    if parser.h1 != 1:
+        errors.append(f"{filename}: expected one h1, found {parser.h1}")
+    if not any("index" in value and "noindex" not in value for value in parser.robots):
+        errors.append(f"{filename}: indexing meta missing")
     if parser.canonical != [location]:
         errors.append(f"{filename}: sitemap/canonical mismatch: {parser.canonical!r} != {location}")
 
