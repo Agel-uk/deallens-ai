@@ -66,6 +66,21 @@ for location in locations:
     suffix = location.removeprefix("https://agel-uk.github.io/")
     target = ROOT / (suffix or "index.html")
     if not target.is_file(): errors.append(f"sitemap.xml: missing local page {location}")
+# Ensure every sitemap page has a self-referencing production canonical.
+# This prevents accidental mixing of root and /deallens-ai/ URLs.
+for location in locations:
+    if not location or not location.startswith("https://agel-uk.github.io/"):
+        continue
+    suffix = location.removeprefix("https://agel-uk.github.io/")
+    filename = suffix or "index.html"
+    target = ROOT / filename
+    if not target.is_file() or not filename.endswith(".html"):
+        continue
+    parser = PageParser()
+    parser.feed(target.read_text(encoding="utf-8"))
+    if parser.canonical != [location]:
+        errors.append(f"{filename}: sitemap/canonical mismatch: {parser.canonical!r} != {location}")
+
 for guide_path in sorted(ROOT.glob("guide-*.html")):
     if guide_path.name == "guide-wireless-headphones-fixed.html": continue
     expected = f"https://agel-uk.github.io/{guide_path.name}"
