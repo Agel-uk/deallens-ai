@@ -239,6 +239,43 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
 else:
     warnings.append("Decision Lab integration check skipped: files missing")
 
+# Flag thin or duplicated editorial pages before another AdSense review.
+# These are warnings, not proof of policy violations.
+from collections import defaultdict
+from html import unescape
+
+class VisibleText(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.suppressed = 0
+        self.words = []
+    def handle_starttag(self, tag, attrs):
+        if tag in ("script", "style", "noscript", "svg"):
+            self.suppressed += 1
+    def handle_endtag(self, tag):
+        if tag in ("script", "style", "noscript", "svg"):
+            self.suppressed = max(0, self.suppressed - 1)
+    def handle_data(self, data):
+        if not self.suppressed:
+            self.words.extend(unescape(data).split())
+
+titles = defaultdict(list)
+descriptions = defaultdict(list)
+for name, page in pages.items():
+    if page.title.strip():
+        titles[page.title.strip().casefold()].append(name)
+    if len(page.descriptions) == 1 and page.descriptions[0].strip():
+        descriptions[page.descriptions[0].strip().casefold()].append(name)
+    if name.startswith("guide-"):
+        visible = VisibleText()
+        visible.feed((ROOT / name).read_text(encoding="utf-8"))
+        if len(visible.words) < 350:
+            warnings.append(f"{name}: only {len(visible.words)} visible words; manually review originality and depth")
+for label, groups in (("title", titles), ("meta description", descriptions)):
+    for files in groups.values():
+        if len(files) > 1:
+            warnings.append(f"Duplicate {label}: {', '.join(sorted(files))}")
+
 # Guard the interactive shopping tool and its discoverability.
 calculator = ROOT / "total-cost-calculator.html"
 if not calculator.is_file():
