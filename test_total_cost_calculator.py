@@ -3,6 +3,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import subprocess
+import json
 import sys
 
 class Scripts(HTMLParser):
@@ -45,7 +46,7 @@ assert.equal(el.total.textContent,'$0.00');
 set({price:250,tax:0,shipping:0,extras:0,monthly:12,years:3});
 assert.equal(el.total.textContent,'$682.00');
 console.log('Calculator functional tests passed');
-""".replace("SCRIPT",repr(script))
+""".replace("SCRIPT",json.dumps(script))
 result = subprocess.run(["node", "-e", harness], capture_output=True, text=True)
 print(result.stdout, end="")
 if result.returncode:
