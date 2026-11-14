@@ -28,5 +28,7 @@ jobs:
             echo "Checking $script"
             node --check "$script"
           done
+      - name: Check inline JavaScript syntax in HTML pages
+        run: python test_inline_scripts.py
       - name: Check comparison CSV export regression
         run: python test_decision_lab_export.py
