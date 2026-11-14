@@ -14,6 +14,8 @@ checks = {
     "CSV double quotes escaped": """replace(/"/g,'""')""" in js,
     "spreadsheet MIME type": "text/csv;charset=utf-8" in js,
     "download name": "deallens-comparison.csv" in js,
+    "numeric validation before export": "Correct invalid budget, price or fee amounts before exporting." in js,
+    "blank fee is not zero": "price!==''&&fees!==''" in js,
 }
 for name, ok in checks.items():
     print(("PASS" if ok else "FAIL") + ": " + name)
