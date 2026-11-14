@@ -185,6 +185,8 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
             errors.append(f"amazon.html: {guide} must link to category {category}; found {found_guides[guide]}")
     for guide in set(found_guides) - set(expected):
         warnings.append(f"amazon.html: untracked guide card {guide}")
+    if len(found_guides) != len(expected):
+        errors.append(f"amazon.html: expected {len(expected)} unique guide cards, found {len(found_guides)}")
 
 else:
     warnings.append("Decision Lab integration check skipped: files missing")
