@@ -90,6 +90,9 @@ for path in sorted(ROOT.glob("*.html")):
             target = unquote(parts.path) or path.name
         if target.endswith("/") or target == "":
             target += "index.html"
+        if ".." in Path(target).parts:
+            errors.append(f"{path.name}: unsafe local path {url}")
+            continue
         if not (ROOT / target).is_file():
             errors.append(f"{path.name}: missing local target {url}")
 
