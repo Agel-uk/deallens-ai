@@ -165,11 +165,11 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
         "guide-portable-ssds.html": "ssds",
         "guide-tablets.html": "tablets",
     }
-    guide_cards = re.findall(r'<article\\b[^>]*class="card"[^>]*data-category="[^"]+"[^>]*>[\\s\\S]*?</article>', cards)
+    guide_cards = re.findall(r'<article\b[^>]*class="card"[^>]*data-category="[^"]+"[^>]*>[\s\S]*?</article>', cards)
     found_guides = {}
     for card in guide_cards:
-        guide_links = re.findall(r'href="(guide-[^"?#]+\\.html)"', card)
-        compare_links = re.findall(r'href="decision-lab\\.html\\?category=([a-z]+)"', card)
+        guide_links = re.findall(r'href="(guide-[^"?#]+\.html)"', card)
+        compare_links = re.findall(r'href="decision-lab\.html\?category=([a-z]+)"', card)
         for guide in guide_links:
             if guide in found_guides:
                 errors.append(f"amazon.html: duplicate guide card {guide}")
