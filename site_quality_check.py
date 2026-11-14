@@ -239,6 +239,28 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
 else:
     warnings.append("Decision Lab integration check skipped: files missing")
 
+# Guard the interactive shopping tool and its discoverability.
+calculator = ROOT / "total-cost-calculator.html"
+if not calculator.is_file():
+    errors.append("total-cost-calculator.html: original shopping calculator missing")
+else:
+    calculator_html = calculator.read_text(encoding="utf-8")
+    for field in ("price", "tax", "shipping", "extras", "monthly", "years", "total"):
+        if f'id="{field}"' not in calculator_html:
+            errors.append(f"total-cost-calculator.html: missing interactive field {field}")
+    if 'aria-live="polite"' not in calculator_html:
+        warnings.append("total-cost-calculator.html: missing accessible live result")
+    if 'total-cost-calculator.html' not in (ROOT / "index.html").read_text(encoding="utf-8"):
+        errors.append("index.html: total cost calculator is not linked")
+    if 'total-cost-calculator.html' not in (ROOT / "sitemap.xml").read_text(encoding="utf-8"):
+        errors.append("sitemap.xml: total cost calculator is not indexed")
+
+# The homepage search and category filters must be present and wired.
+homepage_html = (ROOT / "index.html").read_text(encoding="utf-8")
+for marker in ('id="hero-guide-search"', 'id="guide-search"', 'id="guide-category"', 'data-filter-category="all"', "function searchFor(query)"):
+    if marker not in homepage_html:
+        errors.append(f"index.html: missing interactive search feature {marker}")
+
 print(f"Checked {len(pages)} HTML pages, {len(errors)} errors, {len(warnings)} warnings.")
 for issue in warnings:
     print("WARNING:", issue)
