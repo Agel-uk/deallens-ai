@@ -32,3 +32,5 @@ jobs:
         run: python test_inline_scripts.py
       - name: Check comparison CSV export regression
         run: python test_decision_lab_export.py
+      - name: Test US total cost calculator calculations
+        run: python test_total_cost_calculator.py
