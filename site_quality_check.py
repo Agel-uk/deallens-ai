@@ -76,6 +76,11 @@ for path in sorted(ROOT.glob("*.html")):
         warnings.append(f"{path.name}: expected one h1, found {len(parser.headings)}")
     if len(parser.canonicals) != 1:
         warnings.append(f"{path.name}: expected one canonical URL, found {len(parser.canonicals)}")
+    elif parser.canonicals[0]:
+        canonical = urlsplit(parser.canonicals[0])
+        expected_path = "/" if path.name == "index.html" else "/" + path.name
+        if canonical.scheme != "https" or canonical.netloc.lower() != DOMAIN or canonical.path != expected_path or canonical.query or canonical.fragment:
+            warnings.append(f"{path.name}: canonical URL differs from expected https://{DOMAIN}{expected_path}")
     for tag, url in parser.links:
         parts = urlsplit(url)
         if parts.scheme in ("mailto", "tel", "javascript", "data") or url.startswith("//"):
