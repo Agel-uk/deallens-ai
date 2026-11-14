@@ -217,7 +217,7 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
     homepage = ROOT / "index.html"
     if homepage.is_file():
         homepage_html = homepage.read_text(encoding="utf-8")
-        home_cards = re.findall(r'<article\\b[^>]*class="guide-card"[^>]*>[\\s\\S]*?</article>', homepage_html)
+        home_cards = re.findall(r'<article\b[^>]*class="guide-card"[^>]*>[\s\S]*?</article>', homepage_html)
         home_found = {}
         for card in home_cards:
             guide_links = re.findall(r'href="(guide-[^"?#]+\\.html)"', card)
