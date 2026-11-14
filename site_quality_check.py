@@ -16,6 +16,10 @@ class Page(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.links = []
         self.ids = set()
+        self.duplicate_ids = set()
+        self.descriptions = []
+        self.images_missing_alt = 0
+        self.main_count = 0
         self.headings = []
         self.canonicals = []
         self.in_title = False
@@ -23,7 +27,15 @@ class Page(HTMLParser):
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if a.get("id"):
+            if a["id"] in self.ids:
+                self.duplicate_ids.add(a["id"])
             self.ids.add(a["id"])
+        if tag == "main":
+            self.main_count += 1
+        if tag == "img" and not a.get("alt") and "alt" not in a:
+            self.images_missing_alt += 1
+        if tag == "meta" and a.get("name", "").lower() == "description":
+            self.descriptions.append(a.get("content", ""))
         if tag in ("a", "link", "script", "img"):
             key = "href" if tag in ("a", "link") else "src"
             if a.get(key):
@@ -52,6 +64,14 @@ for path in sorted(ROOT.glob("*.html")):
     pages[path.name] = parser
     if not parser.title.strip():
         warnings.append(f"{path.name}: missing title")
+    if len(parser.descriptions) != 1 or not parser.descriptions[0].strip():
+        warnings.append(f"{path.name}: missing or duplicate meta description")
+    if parser.duplicate_ids:
+        errors.append(f"{path.name}: duplicate HTML ids: {sorted(parser.duplicate_ids)}")
+    if parser.images_missing_alt:
+        warnings.append(f"{path.name}: {parser.images_missing_alt} images missing alt text")
+    if parser.main_count != 1:
+        warnings.append(f"{path.name}: expected one main landmark, found {parser.main_count}")
     if len(parser.headings) != 1:
         warnings.append(f"{path.name}: expected one h1, found {len(parser.headings)}")
     if len(parser.canonicals) != 1:
@@ -72,9 +92,6 @@ for path in sorted(ROOT.glob("*.html")):
             target += "index.html"
         if not (ROOT / target).is_file():
             errors.append(f"{path.name}: missing local target {url}")
-        elif parts.fragment and target.endswith(".html") and parts.fragment not in pages.get(target, Page()).ids:
-            # Fragment validation happens in a second pass below.
-            pass
 
 for name, parser in pages.items():
     for tag, url in parser.links:
@@ -109,6 +126,12 @@ if sitemap.is_file():
         errors.append(f"sitemap.xml: invalid XML: {exc}")
 else:
     errors.append("sitemap.xml: missing")
+
+robots = ROOT / "robots.txt"
+if not robots.is_file():
+    warnings.append("robots.txt: missing")
+elif "https://agel-uk.github.io/sitemap.xml" not in robots.read_text(encoding="utf-8"):
+    warnings.append("robots.txt: missing expected sitemap URL")
 
 print(f"Checked {len(pages)} HTML pages, {len(errors)} errors, {len(warnings)} warnings.")
 for issue in warnings:
