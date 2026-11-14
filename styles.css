@@ -54,3 +54,6 @@ html{scroll-padding-top:90px}
 .dl-next-step .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin:5px 8px 5px 0;text-decoration:none}
 .dl-next-step .small{color:#475467}
 @media(max-width:520px){.dl-next-step{padding:18px}.dl-next-step .btn{display:flex;width:100%;margin:8px 0}}
+
+/* Ensure filtered cards and other conditional UI are actually hidden. */
+[hidden] { display: none !important; }
