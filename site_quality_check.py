@@ -146,7 +146,7 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
     html = lab_html.read_text(encoding="utf-8")
     cards = library.read_text(encoding="utf-8")
     categories = set(re.findall(r'<option value="([a-z]+)">', html))
-    defined = set(re.findall(r"([a-z]+):\\[", js.split("const criteria=", 1)[1].split(";const $=", 1)[0])) if "const criteria=" in js else set()
+    defined = set(re.findall(r"([a-z]+):\[", js.split("const criteria=", 1)[1].split(";const $=", 1)[0])) if "const criteria=" in js else set()
     expected = {
         "guide-wireless-headphones.html": "headphones",
         "guide-power-banks.html": "powerbanks",
@@ -170,7 +170,7 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
             errors.append(f"decision-lab.html: missing category {category}")
         if category not in defined:
             errors.append(f"decision-lab.js: missing criteria {category}")
-        pattern = rf'href="{re.escape(guide)}"[\\s\\S]*?href="decision-lab.html\\?category=([a-z]+)"'
+        pattern = rf'href="{re.escape(guide)}"[\s\S]*?href="decision-lab.html\?category=([a-z]+)"'
         found = re.search(pattern, cards)
         if not found or found.group(1) != category:
             errors.append(f"amazon.html: {guide} must link to category {category}")
