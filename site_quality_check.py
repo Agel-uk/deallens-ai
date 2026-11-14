@@ -136,6 +136,15 @@ if sitemap.is_file():
             if (ROOT / required).is_file() and required not in sitemap_paths:
                 errors.append(f"sitemap.xml: missing important page {required}")
         for url in urls:
+            parsed = urlsplit(url)
+            page_name = unquote(parsed.path.lstrip("/")) or "index.html"
+            if page_name in pages:
+                declared = pages[page_name].canonicals
+                if len(declared) == 1 and declared[0] != url:
+                    errors.append(f"sitemap.xml: {page_name} canonical {declared[0]} differs from sitemap URL {url}")
+            if parsed.scheme != "https" or parsed.query or parsed.fragment:
+                errors.append(f"sitemap.xml: noncanonical URL form {url}")
+        for url in urls:
             p = urlsplit(url)
             if p.netloc.lower() != DOMAIN:
                 errors.append(f"sitemap.xml: unexpected domain {url}")
