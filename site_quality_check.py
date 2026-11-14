@@ -136,6 +136,47 @@ if not robots.is_file():
 elif "https://agel-uk.github.io/sitemap.xml" not in robots.read_text(encoding="utf-8"):
     warnings.append("robots.txt: missing expected sitemap URL")
 
+# Check that guide-card comparison links use supported, specialized criteria.
+import re
+lab_js = ROOT / "decision-lab.js"
+lab_html = ROOT / "decision-lab.html"
+library = ROOT / "amazon.html"
+if all(p.is_file() for p in (lab_js, lab_html, library)):
+    js = lab_js.read_text(encoding="utf-8")
+    html = lab_html.read_text(encoding="utf-8")
+    cards = library.read_text(encoding="utf-8")
+    categories = set(re.findall(r'<option value="([a-z]+)">', html))
+    defined = set(re.findall(r"([a-z]+):\\[", js.split("const criteria=", 1)[1].split(";const $=", 1)[0])) if "const criteria=" in js else set()
+    expected = {
+        "guide-wireless-headphones.html": "headphones",
+        "guide-power-banks.html": "powerbanks",
+        "guide-robot-vacuums.html": "vacuums",
+        "guide-running-shoes.html": "shoes",
+        "guide-smart-watches.html": "watches",
+        "guide-air-fryers.html": "airfryers",
+        "guide-laptops.html": "laptops",
+        "guide-office-chairs.html": "chairs",
+        "guide-coffee-makers.html": "coffeemakers",
+        "guide-coffee-machines.html": "espresso",
+        "guide-monitors.html": "monitors",
+        "guide-carry-on-luggage.html": "luggage",
+        "guide-cordless-drills.html": "drills",
+        "guide-mesh-wifi.html": "mesh",
+        "guide-portable-ssds.html": "ssds",
+        "guide-tablets.html": "tablets",
+    }
+    for guide, category in expected.items():
+        if category not in categories:
+            errors.append(f"decision-lab.html: missing category {category}")
+        if category not in defined:
+            errors.append(f"decision-lab.js: missing criteria {category}")
+        pattern = rf'href="{re.escape(guide)}"[\\s\\S]*?href="decision-lab.html\\?category=([a-z]+)"'
+        found = re.search(pattern, cards)
+        if not found or found.group(1) != category:
+            errors.append(f"amazon.html: {guide} must link to category {category}")
+else:
+    warnings.append("Decision Lab integration check skipped: files missing")
+
 print(f"Checked {len(pages)} HTML pages, {len(errors)} errors, {len(warnings)} warnings.")
 for issue in warnings:
     print("WARNING:", issue)
