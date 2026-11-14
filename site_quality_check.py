@@ -118,6 +118,18 @@ if sitemap.is_file():
         urls = [el.text for el in tree.findall(".//sm:loc", ns) if el.text]
         if len(urls) != len(set(urls)):
             errors.append("sitemap.xml: duplicate URLs")
+        if not urls:
+            errors.append("sitemap.xml: no page URLs")
+        sitemap_paths = set()
+        for url in urls:
+            parsed = urlsplit(url)
+            sitemap_paths.add(unquote(parsed.path.lstrip("/")) or "index.html")
+        for guide in sorted(ROOT.glob("guide-*.html")):
+            if guide.name not in sitemap_paths:
+                errors.append(f"sitemap.xml: missing buying guide {guide.name}")
+        for required in ("index.html", "amazon.html", "decision-lab.html", "us-shopping-checklist.html"):
+            if (ROOT / required).is_file() and required not in sitemap_paths:
+                errors.append(f"sitemap.xml: missing important page {required}")
         for url in urls:
             p = urlsplit(url)
             if p.netloc.lower() != DOMAIN:
