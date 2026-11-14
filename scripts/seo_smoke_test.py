@@ -49,8 +49,10 @@ config = (ROOT / "affiliate-config.js").read_text(encoding="utf-8")
 if 'US: "deallensai-20"' not in config or "US: true" not in config:
     errors.append("affiliate-config.js: US affiliate ID or activation missing")
 home = (ROOT / "index.html").read_text(encoding="utf-8")
-if 'src="affiliate-config.js"' not in home or "url.searchParams.set('tag',tags[m[0]])" not in home:
-    errors.append("index.html: affiliate search tracking path missing")
+if "As an Amazon Associate" not in home:
+    errors.append("index.html: affiliate disclosure missing")
+if 'id="guide-search"' not in home or 'id="guide-category"' not in home:
+    errors.append("index.html: guide discovery controls missing")
 
 # Validate the sitemap's canonical root URLs and duplicate-free entries.
 import xml.etree.ElementTree as ET
