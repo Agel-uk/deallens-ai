@@ -220,8 +220,8 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
         home_cards = re.findall(r'<article\b[^>]*class="guide-card"[^>]*>[\s\S]*?</article>', homepage_html)
         home_found = {}
         for card in home_cards:
-            guide_links = re.findall(r'href="(guide-[^"?#]+\\.html)"', card)
-            comparison_links = re.findall(r'href="decision-lab\\.html\\?category=([a-z]+)"', card)
+            guide_links = re.findall(r'href="(guide-[^"?#]+\.html)"', card)
+            comparison_links = re.findall(r'href="decision-lab\.html\?category=([a-z]+)"', card)
             unique_guides = set(guide_links)
             if len(unique_guides) != 1:
                 errors.append(f"index.html: guide card should reference one guide; found {sorted(unique_guides)}")
