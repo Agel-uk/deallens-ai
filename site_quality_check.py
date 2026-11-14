@@ -214,6 +214,28 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
     if len(found_guides) != len(expected):
         errors.append(f"amazon.html: expected {len(expected)} unique guide cards, found {len(found_guides)}")
 
+    homepage = ROOT / "index.html"
+    if homepage.is_file():
+        homepage_html = homepage.read_text(encoding="utf-8")
+        home_cards = re.findall(r'<article\\b[^>]*class="guide-card"[^>]*>[\\s\\S]*?</article>', homepage_html)
+        home_found = {}
+        for card in home_cards:
+            guide_links = re.findall(r'href="(guide-[^"?#]+\\.html)"', card)
+            comparison_links = re.findall(r'href="decision-lab\\.html\\?category=([a-z]+)"', card)
+            unique_guides = set(guide_links)
+            if len(unique_guides) != 1:
+                errors.append(f"index.html: guide card should reference one guide; found {sorted(unique_guides)}")
+                continue
+            guide = next(iter(unique_guides))
+            if guide in home_found:
+                errors.append(f"index.html: duplicate guide card {guide}")
+            home_found[guide] = comparison_links
+        for guide, category in expected.items():
+            if home_found.get(guide) != [category]:
+                errors.append(f"index.html: {guide} missing or incorrect comparison shortcut (expected {category})")
+        if len(home_cards) != len(expected):
+            errors.append(f"index.html: expected {len(expected)} guide cards, found {len(home_cards)}")
+
 else:
     warnings.append("Decision Lab integration check skipped: files missing")
 
