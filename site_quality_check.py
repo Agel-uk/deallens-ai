@@ -130,6 +130,10 @@ if sitemap.is_file():
             parsed = urlsplit(url)
             sitemap_paths.add(unquote(parsed.path.lstrip("/")) or "index.html")
         for guide in sorted(ROOT.glob("guide-*.html")):
+            # Archived duplicates with a canonical pointing to the primary guide must not be indexed.
+            declared = pages.get(guide.name).canonicals if guide.name in pages else []
+            if len(declared) == 1 and urlsplit(declared[0]).path not in ("/" + guide.name,):
+                continue
             if guide.name not in sitemap_paths:
                 errors.append(f"sitemap.xml: missing buying guide {guide.name}")
         for required in ("index.html", "amazon.html", "decision-lab.html", "us-shopping-checklist.html"):
@@ -191,7 +195,7 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
         "guide-portable-ssds.html": "ssds",
         "guide-tablets.html": "tablets",
     }
-    guide_cards = re.findall(r'<article\b[^>]*class="card"[^>]*>[\s\S]*?</article>', cards)
+    guide_cards = re.findall(r'<article\b[^>]*class="card"[^>]*data-category="[^"]+"[^>]*>[\s\S]*?</article>', cards)
     found_guides = {}
     for card in guide_cards:
         guide_links = re.findall(r'href="(guide-[^"?#]+\.html)"', card)
