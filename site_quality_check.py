@@ -113,7 +113,7 @@ for name, parser in pages.items():
         if target == "/" or target.endswith("/"):
             target = "index.html"
         if target in pages and parts.fragment not in pages[target].ids:
-            warnings.append(f"{name}: missing anchor {url}")
+            errors.append(f"{name}: broken internal anchor {url}")
 
 sitemap = ROOT / "sitemap.xml"
 if sitemap.is_file():
