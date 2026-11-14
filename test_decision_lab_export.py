@@ -16,6 +16,9 @@ checks = {
     "download name": "deallens-comparison.csv" in js,
     "numeric validation before export": "Correct invalid budget, price or fee amounts before exporting." in js,
     "blank fee is not zero": "price!==''&&fees!==''" in js,
+    "budget status included": "'Budget status'" in js,
+    "unknown totals labeled": "'Total unknown'" in js,
+    "over budget labeled": "'Over budget'" in js,
 }
 for name, ok in checks.items():
     print(("PASS" if ok else "FAIL") + ": " + name)
