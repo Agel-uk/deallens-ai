@@ -165,15 +165,27 @@ if all(p.is_file() for p in (lab_js, lab_html, library)):
         "guide-portable-ssds.html": "ssds",
         "guide-tablets.html": "tablets",
     }
+    guide_cards = re.findall(r'<article\\b[^>]*class="card"[^>]*>[\\s\\S]*?</article>', cards)
+    found_guides = {}
+    for card in guide_cards:
+        guide_links = re.findall(r'href="(guide-[^"?#]+\\.html)"', card)
+        compare_links = re.findall(r'href="decision-lab\\.html\\?category=([a-z]+)"', card)
+        for guide in guide_links:
+            if guide in found_guides:
+                errors.append(f"amazon.html: duplicate guide card {guide}")
+            found_guides[guide] = compare_links
     for guide, category in expected.items():
         if category not in categories:
             errors.append(f"decision-lab.html: missing category {category}")
         if category not in defined:
             errors.append(f"decision-lab.js: missing criteria {category}")
-        pattern = rf'href="{re.escape(guide)}"[\s\S]*?href="decision-lab.html\?category=([a-z]+)"'
-        found = re.search(pattern, cards)
-        if not found or found.group(1) != category:
-            errors.append(f"amazon.html: {guide} must link to category {category}")
+        if guide not in found_guides:
+            errors.append(f"amazon.html: missing guide card {guide}")
+        elif found_guides[guide] != [category]:
+            errors.append(f"amazon.html: {guide} must link to category {category}; found {found_guides[guide]}")
+    for guide in set(found_guides) - set(expected):
+        warnings.append(f"amazon.html: untracked guide card {guide}")
+
 else:
     warnings.append("Decision Lab integration check skipped: files missing")
 
