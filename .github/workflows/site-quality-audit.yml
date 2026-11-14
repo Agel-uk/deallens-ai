@@ -21,7 +21,12 @@ jobs:
           python-version: '3.12'
       - name: Check local links, canonical metadata and sitemap
         run: python site_quality_check.py
-      - name: Check Decision Lab JavaScript syntax
-        run: node --check decision-lab.js
+      - name: Check all root JavaScript files for syntax errors
+        run: |
+          set -eu
+          for script in ./*.js; do
+            echo "Checking $script"
+            node --check "$script"
+          done
       - name: Check comparison CSV export regression
         run: python test_decision_lab_export.py
