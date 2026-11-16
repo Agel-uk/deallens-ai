@@ -115,7 +115,7 @@ for guide_path in guide_paths:
     if not amazon_links:
         errors.append(f"{guide_path.name}: missing direct Amazon US research link")
     for url in amazon_links:
-        if not re.search(r"(?:\\?|&)tag=deallensai-20(?:&|$)", url):
+        if not re.search(r"[?&]tag=deallensai-20(?:&|$)", url):
             errors.append(f"{guide_path.name}: Amazon US link missing correct affiliate tag: {url}")
 
 if len(guide_paths) != 16:
