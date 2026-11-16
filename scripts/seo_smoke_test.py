@@ -106,6 +106,18 @@ for guide_path in guide_paths:
     for destination in ("decision-lab.html?category=", "ownership-cost.html", "us-shopping.html"):
         if destination not in guide_content:
             errors.append(f"{guide_path.name}: missing conversion path {destination}")
+# Guard against accidentally removing or de-tagging Amazon US affiliate links.
+# HTMLParser decodes &amp; in href attributes, so validate the decoded query string.
+for guide_path in guide_paths:
+    parser = PageParser()
+    parser.feed(guide_path.read_text(encoding="utf-8"))
+    amazon_links = [url for url in parser.links if url.startswith("https://www.amazon.com/")]
+    if not amazon_links:
+        errors.append(f"{guide_path.name}: missing direct Amazon US research link")
+    for url in amazon_links:
+        if not re.search(r"[?&]tag=deallensai-20(?:&|$)", url):
+            errors.append(f"{guide_path.name}: Amazon US link missing correct affiliate tag: {url}")
+
 if len(guide_paths) != 16:
     errors.append(f"Expected 16 buying guides, found {len(guide_paths)}")
 # Ensure measured buyer paths have instrumentation without hard-coded GA IDs.
