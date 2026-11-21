@@ -1,7 +1,7 @@
 "use strict";
 /* Consent-first GA4 event measurement. Events are sent only after opt-in. */
 (function(){
-  const GA4_MEASUREMENT_ID="G-J09RWN8FZX"; // Set your real G-XXXXXXXXXX ID here after creating a GA4 web stream.
+  const GA4_MEASUREMENT_ID="G-J09RWN8FZX"; // Configured GA4 web stream.
   const ID=(GA4_MEASUREMENT_ID||window.DEALLENS_ANALYTICS_ID||"").trim();
   const valid=/^G-[A-Z0-9]{6,15}$/.test(ID);
   const KEY="deallens_analytics_consent_v1";
@@ -56,7 +56,7 @@
     if(page==="us-buying-guides.html"||page==="amazon.html"){
       return {name:"guide_hub_click",params:{destination:page,source_page:location.pathname.split("/").pop()||"index.html"}};
     }
-    if(page==="decision-lab.html"||page==="ownership-cost.html"||page==="us-shopping.html"){
+    if(page==="decision-lab.html"||page==="ownership-cost.html"||page==="us-shopping.html"||page==="us-shopping-checklist.html"||page==="total-cost-calculator.html"){
       return {name:"buyer_path_click",params:{destination:page,source_page:location.pathname.split("/").pop()||"index.html"}};
     }
     return null;
