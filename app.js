@@ -5,26 +5,7 @@
 // Affiliate IDs are configured in affiliate-config.js.
 // Only markets explicitly enabled in affiliate-config.js receive tags; this does not establish account approval.
 
-const MARKETS = [
-  ["AE", "United Arab Emirates", "AED", "amazon.ae"],
-  ["SA", "Saudi Arabia", "SAR", "amazon.sa"],
-  ["US", "United States", "USD", "amazon.com"],
-  ["CA", "Canada", "CAD", "amazon.ca"],
-  ["MX", "Mexico", "MXN", "amazon.com.mx"],
-  ["BR", "Brazil", "BRL", "amazon.com.br"],
-  ["UK", "United Kingdom", "GBP", "amazon.co.uk"],
-  ["DE", "Germany", "EUR", "amazon.de"],
-  ["FR", "France", "EUR", "amazon.fr"],
-  ["IT", "Italy", "EUR", "amazon.it"],
-  ["ES", "Spain", "EUR", "amazon.es"],
-  ["NL", "Netherlands", "EUR", "amazon.nl"],
-  ["SE", "Sweden", "SEK", "amazon.se"],
-  ["PL", "Poland", "PLN", "amazon.pl"],
-  ["IN", "India", "INR", "amazon.in"],
-  ["JP", "Japan", "JPY", "amazon.co.jp"],
-  ["SG", "Singapore", "SGD", "amazon.sg"],
-  ["AU", "Australia", "AUD", "amazon.com.au"]
-];
+const MARKETS = [["US", "United States", "USD", "amazon.com"]];
 
 const TAGS = window.DEALLENS_ACTIVE_AFFILIATE_TAGS || {};
 
@@ -59,17 +40,7 @@ function marketByCode(code) {
     || MARKETS.find(m => m[0] === "US");
 }
 
-function preferredMarket() {
-  try {
-    const saved = localStorage.getItem("deallens_market");
-
-    if (saved && MARKETS.some(m => m[0] === saved)) {
-      return saved;
-    }
-  } catch (_) {}
-
-  return "US";
-}
+function preferredMarket() { return "US"; }
 
 function marketOptions() {
   return MARKETS.map(
@@ -82,7 +53,7 @@ if (marketSelect) {
   marketSelect.value = preferredMarket();
 }
 
-// Respect the previously selected market on guide pages.
+// US-only marketplace selection for the primary shopping experience.
 function selectedMarket() {
   return marketByCode(marketSelect?.value || preferredMarket());
 }
